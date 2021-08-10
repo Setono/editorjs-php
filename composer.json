@@ -1,0 +1,47 @@
+{
+    "name": "setono/codex-editor-php",
+    "type": "library",
+    "description": "PHP library for handling data from the Codex Editor",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joachim Løvgaard",
+            "email": "joachim@loevgaard.dk"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "infection/infection": "^0.23.0",
+        "phpunit/phpunit": "^9.5",
+        "psalm/plugin-phpunit": "^0.16.1",
+        "setono/code-quality-pack": "^2.1.2"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Setono\\CodexEditor\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Setono\\CodexEditor\\": "tests/"
+        }
+    },
+    "prefer-stable": true,
+    "scripts": {
+        "analyse": "psalm",
+        "check-style": "ecs check",
+        "fix-style": "ecs check --fix",
+        "phpunit": "phpunit"
+    }
+}
