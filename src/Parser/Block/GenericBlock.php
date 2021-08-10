@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser\Block;
+namespace Setono\EditorJS\Parser\Block;
 
 use Webmozart\Assert\Assert;
 

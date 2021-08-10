@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser\Block\Header;
+namespace Setono\EditorJS\Parser\Block\Header;
 
-use Setono\CodexEditor\Parser\Block\BlockInterface;
+use Setono\EditorJS\Parser\Block\BlockInterface;
 
 interface HeaderBlockInterface extends BlockInterface
 {

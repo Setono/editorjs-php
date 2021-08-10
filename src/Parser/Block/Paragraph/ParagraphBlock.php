@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser\Block\Paragraph;
+namespace Setono\EditorJS\Parser\Block\Paragraph;
 
-use Setono\CodexEditor\Parser\Block\BlockInterface;
-use Setono\CodexEditor\Parser\Block\GenericBlock;
+use Setono\EditorJS\Parser\Block\BlockInterface;
+use Setono\EditorJS\Parser\Block\GenericBlock;
 use Webmozart\Assert\Assert;
 
 final class ParagraphBlock extends GenericBlock implements ParagraphBlockInterface

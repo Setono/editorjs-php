@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 // the 'Block' in 'ListBlock' is only because reserved keywords cannot be part of a namespace before PHP8
 
-namespace Setono\CodexEditor\Parser\Block\ListBlock;
+namespace Setono\EditorJS\Parser\Block\ListBlock;
 
-use Setono\CodexEditor\Parser\Block\BlockInterface;
-use Setono\CodexEditor\Parser\Block\GenericBlock;
+use Setono\EditorJS\Parser\Block\BlockInterface;
+use Setono\EditorJS\Parser\Block\GenericBlock;
 use Webmozart\Assert\Assert;
 
 final class ListBlock extends GenericBlock implements ListBlockInterface

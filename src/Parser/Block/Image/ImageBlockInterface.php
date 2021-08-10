@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser\Block\Image;
+namespace Setono\EditorJS\Parser\Block\Image;
 
-use Setono\CodexEditor\Parser\Block\BlockInterface;
+use Setono\EditorJS\Parser\Block\BlockInterface;
 
 interface ImageBlockInterface extends BlockInterface
 {

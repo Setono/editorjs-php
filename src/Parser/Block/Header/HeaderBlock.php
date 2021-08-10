@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser\Block\Header;
+namespace Setono\EditorJS\Parser\Block\Header;
 
-use Setono\CodexEditor\Parser\Block\BlockInterface;
-use Setono\CodexEditor\Parser\Block\GenericBlock;
+use Setono\EditorJS\Parser\Block\BlockInterface;
+use Setono\EditorJS\Parser\Block\GenericBlock;
 use Webmozart\Assert\Assert;
 
 final class HeaderBlock extends GenericBlock implements HeaderBlockInterface

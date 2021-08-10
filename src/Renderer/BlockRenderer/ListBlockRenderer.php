@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Renderer\BlockRenderer;
+namespace Setono\EditorJS\Renderer\BlockRenderer;
 
-use Setono\CodexEditor\Parser\Block\BlockInterface;
-use Setono\CodexEditor\Parser\Block\ListBlock\ListBlockInterface;
+use Setono\EditorJS\Parser\Block\BlockInterface;
+use Setono\EditorJS\Parser\Block\ListBlock\ListBlockInterface;
 
 final class ListBlockRenderer extends GenericBlockRenderer
 {

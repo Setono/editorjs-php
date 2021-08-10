@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Exception;
+namespace Setono\EditorJS\Exception;
 
 interface ExceptionInterface extends \Throwable
 {

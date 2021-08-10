@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser;
+namespace Setono\EditorJS\Parser;
 
 use PHPUnit\Framework\TestCase;
-use Setono\CodexEditor\Decoder\PhpDecoder;
-use Setono\CodexEditor\Parser\BlockParser\DelimiterBlockParser;
-use Setono\CodexEditor\Parser\BlockParser\HeaderBlockParser;
-use Setono\CodexEditor\Parser\BlockParser\ImageBlockParser;
-use Setono\CodexEditor\Parser\BlockParser\ListBlockParser;
-use Setono\CodexEditor\Parser\BlockParser\ParagraphBlockParser;
+use Setono\EditorJS\Decoder\PhpDecoder;
+use Setono\EditorJS\Parser\BlockParser\DelimiterBlockParser;
+use Setono\EditorJS\Parser\BlockParser\HeaderBlockParser;
+use Setono\EditorJS\Parser\BlockParser\ImageBlockParser;
+use Setono\EditorJS\Parser\BlockParser\ListBlockParser;
+use Setono\EditorJS\Parser\BlockParser\ParagraphBlockParser;
 
 /**
- * @covers \Setono\CodexEditor\Parser\Parser
+ * @covers \Setono\EditorJS\Parser\Parser
  */
 final class ParserTest extends TestCase
 {

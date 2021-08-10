@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Renderer\BlockRenderer;
+namespace Setono\EditorJS\Renderer\BlockRenderer;
 
-use Setono\CodexEditor\Parser\Block\BlockInterface;
-use Setono\CodexEditor\Parser\Block\Image\ImageBlockInterface;
+use Setono\EditorJS\Parser\Block\BlockInterface;
+use Setono\EditorJS\Parser\Block\Image\ImageBlockInterface;
 
 final class ImageBlockRenderer extends GenericBlockRenderer
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser\Block\Image;
+namespace Setono\EditorJS\Parser\Block\Image;
 
 use Webmozart\Assert\Assert;
 

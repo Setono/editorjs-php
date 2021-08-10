@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser\BlockParser;
+namespace Setono\EditorJS\Parser\BlockParser;
 
-use Setono\CodexEditor\Parser\Block\Image\ImageBlock;
+use Setono\EditorJS\Parser\Block\Image\ImageBlock;
 
 final class ImageBlockParser extends GenericBlockParser
 {

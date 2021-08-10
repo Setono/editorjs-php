@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser;
+namespace Setono\EditorJS\Parser;
 
-use Setono\CodexEditor\Parser\BlockParser\BlockParserInterface;
+use Setono\EditorJS\Parser\BlockParser\BlockParserInterface;
 
 interface ParserInterface
 {

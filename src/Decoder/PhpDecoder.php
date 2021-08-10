@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Decoder;
+namespace Setono\EditorJS\Decoder;
 
 use Webmozart\Assert\Assert;
 

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Renderer;
+namespace Setono\EditorJS\Renderer;
 
 use PHPUnit\Framework\TestCase;
-use Setono\CodexEditor\Parser\Block\Paragraph\ParagraphBlock;
-use Setono\CodexEditor\Parser\BlockList;
-use Setono\CodexEditor\Parser\Result;
-use Setono\CodexEditor\Renderer\BlockRenderer\ParagraphBlockRenderer;
+use Setono\EditorJS\Parser\Block\Paragraph\ParagraphBlock;
+use Setono\EditorJS\Parser\BlockList;
+use Setono\EditorJS\Parser\Result;
+use Setono\EditorJS\Renderer\BlockRenderer\ParagraphBlockRenderer;
 
 /**
- * @covers \Setono\CodexEditor\Renderer\Renderer
+ * @covers \Setono\EditorJS\Renderer\Renderer
  */
 final class RendererTest extends TestCase
 {

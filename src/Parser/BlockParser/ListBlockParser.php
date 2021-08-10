@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser\BlockParser;
+namespace Setono\EditorJS\Parser\BlockParser;
 
-use Setono\CodexEditor\Parser\Block\ListBlock\ListBlock;
+use Setono\EditorJS\Parser\Block\ListBlock\ListBlock;
 
 final class ListBlockParser extends GenericBlockParser
 {

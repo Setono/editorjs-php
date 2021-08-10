@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Renderer\BlockRenderer;
+namespace Setono\EditorJS\Renderer\BlockRenderer;
 
-use Setono\CodexEditor\Parser\Block\BlockInterface;
-use Setono\CodexEditor\Parser\Block\Paragraph\ParagraphBlockInterface;
+use Setono\EditorJS\Parser\Block\BlockInterface;
+use Setono\EditorJS\Parser\Block\Paragraph\ParagraphBlockInterface;
 
 final class ParagraphBlockRenderer extends GenericBlockRenderer
 {

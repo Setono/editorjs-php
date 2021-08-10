@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser;
+namespace Setono\EditorJS\Parser;
 
 use ArrayIterator;
 use IteratorAggregate;
-use Setono\CodexEditor\Parser\Block\BlockInterface;
+use Setono\EditorJS\Parser\Block\BlockInterface;
 
 /**
  * @template-implements IteratorAggregate<int, BlockInterface>

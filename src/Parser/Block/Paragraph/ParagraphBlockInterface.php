@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser\Block\Paragraph;
+namespace Setono\EditorJS\Parser\Block\Paragraph;
 
-use Setono\CodexEditor\Parser\Block\BlockInterface;
+use Setono\EditorJS\Parser\Block\BlockInterface;
 
 interface ParagraphBlockInterface extends BlockInterface
 {

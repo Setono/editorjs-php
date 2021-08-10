@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Renderer;
+namespace Setono\EditorJS\Renderer;
 
-use Setono\CodexEditor\Parser\Result;
-use Setono\CodexEditor\Renderer\BlockRenderer\BlockRendererInterface;
+use Setono\EditorJS\Parser\Result;
+use Setono\EditorJS\Renderer\BlockRenderer\BlockRendererInterface;
 
 interface RendererInterface
 {

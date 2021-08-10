@@ -1,7 +1,7 @@
 {
-    "name": "setono/codex-editor-php",
+    "name": "setono/editorjs-php",
     "type": "library",
-    "description": "PHP library for handling data from the Codex Editor",
+    "description": "PHP library for handling data from the EditorJS",
     "license": "MIT",
     "authors": [
         {
@@ -29,12 +29,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Setono\\CodexEditor\\": "src/"
+            "Setono\\EditorJS\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Setono\\CodexEditor\\": "tests/"
+            "Setono\\EditorJS\\": "tests/"
         }
     },
     "prefer-stable": true,

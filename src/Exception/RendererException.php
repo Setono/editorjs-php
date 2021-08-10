@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Exception;
+namespace Setono\EditorJS\Exception;
 
-use Setono\CodexEditor\Parser\Block\BlockInterface;
+use Setono\EditorJS\Parser\Block\BlockInterface;
 
 final class RendererException extends \RuntimeException implements ExceptionInterface
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser;
+namespace Setono\EditorJS\Parser;
 
-use Setono\CodexEditor\Exception\ParserException;
-use Setono\CodexEditor\Parser\Block\GenericBlock;
-use Setono\CodexEditor\Parser\BlockParser\BlockParserInterface;
+use Setono\EditorJS\Exception\ParserException;
+use Setono\EditorJS\Parser\Block\GenericBlock;
+use Setono\EditorJS\Parser\BlockParser\BlockParserInterface;
 use Webmozart\Assert\Assert;
 
 final class Parser implements ParserInterface

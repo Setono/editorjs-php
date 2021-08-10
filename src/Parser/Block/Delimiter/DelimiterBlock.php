@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\CodexEditor\Parser\Block\Delimiter;
+namespace Setono\EditorJS\Parser\Block\Delimiter;
 
-use Setono\CodexEditor\Parser\Block\GenericBlock;
+use Setono\EditorJS\Parser\Block\GenericBlock;
 
 final class DelimiterBlock extends GenericBlock implements DelimiterBlockInterface
 {
