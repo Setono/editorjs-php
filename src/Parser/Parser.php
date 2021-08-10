@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Parser;
 
+use Setono\EditorJS\Decoder\DecoderInterface;
+use Setono\EditorJS\Decoder\PhpDecoder;
 use Setono\EditorJS\Exception\ParserException;
 use Setono\EditorJS\Parser\Block\GenericBlock;
 use Setono\EditorJS\Parser\BlockParser\BlockParserInterface;
@@ -11,18 +13,31 @@ use Webmozart\Assert\Assert;
 
 final class Parser implements ParserInterface
 {
+    private DecoderInterface $decoder;
+
     /** @var list<BlockParserInterface> */
     private array $blockParsers = [];
 
-    public function parse(array $data): Result
+    public function __construct(DecoderInterface $decoder = null)
     {
+        $this->decoder = $decoder ?? new PhpDecoder();
+    }
+
+    public function parse(string $json): Result
+    {
+        try {
+            $data = $this->decoder->decode($json);
+        } catch (\Throwable $e) {
+            throw ParserException::invalidJson($e->getMessage());
+        }
+
         self::validate($data);
 
         $blockList = new BlockList();
 
         foreach ($data['blocks'] as $dataBlock) {
             if (!is_array($dataBlock)) {
-                throw new ParserException($dataBlock);
+                throw ParserException::invalidType($dataBlock);
             }
 
             $block = GenericBlock::createFromData($dataBlock);
@@ -35,13 +50,13 @@ final class Parser implements ParserInterface
                 try {
                     $blockList->add($blockParser->parse($block));
                 } catch (\Throwable $e) {
-                    throw new ParserException($block, $e->getMessage());
+                    throw ParserException::invalidBlock($block, $e->getMessage());
                 }
 
                 continue 2;
             }
 
-            throw new ParserException($block);
+            throw ParserException::noBlockParser($block);
         }
 
         $time = new \DateTimeImmutable(sprintf('@%d', $data['time']));

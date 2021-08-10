@@ -8,7 +8,10 @@ use Setono\EditorJS\Parser\BlockParser\BlockParserInterface;
 
 interface ParserInterface
 {
-    public function parse(array $data): Result;
+    /**
+     * @param string $json the output from the EditorJS javascript instance
+     */
+    public function parse(string $json): Result;
 
     public function addBlockParser(BlockParserInterface $blockParser): void;
 }

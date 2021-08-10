@@ -22,17 +22,14 @@ final class ParserTest extends TestCase
      */
     public function it_parses(): void
     {
-        $decoder = new PhpDecoder();
-        $data = $decoder->decode(self::getTestData());
-
-        $parser = new Parser();
+        $parser = new Parser(new PhpDecoder());
         $parser->addBlockParser(new HeaderBlockParser());
         $parser->addBlockParser(new ParagraphBlockParser());
         $parser->addBlockParser(new ListBlockParser());
         $parser->addBlockParser(new DelimiterBlockParser());
         $parser->addBlockParser(new ImageBlockParser());
 
-        $parser->parse($data);
+        $parser->parse(self::getTestData());
 
         self::assertTrue(true);
     }
