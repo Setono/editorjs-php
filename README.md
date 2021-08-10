@@ -10,7 +10,7 @@
 ## Installation
 
 ```bash
-$ composer require setono/editorjs-php
+composer require setono/editorjs-php
 ```
 
 ## Usage
