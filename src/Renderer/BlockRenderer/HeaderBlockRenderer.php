@@ -6,6 +6,7 @@ namespace Setono\EditorJS\Renderer\BlockRenderer;
 
 use Setono\EditorJS\Parser\Block\BlockInterface;
 use Setono\EditorJS\Parser\Block\Header\HeaderBlockInterface;
+use Setono\EditorJS\Renderer\HtmlBuilder;
 
 final class HeaderBlockRenderer extends GenericBlockRenderer
 {
@@ -13,7 +14,10 @@ final class HeaderBlockRenderer extends GenericBlockRenderer
     {
         \assert($block instanceof HeaderBlockInterface);
 
-        return sprintf('<h%d>%s</h%d>', $block->getLevel(), $block->getText(), $block->getLevel());
+        return (string) HtmlBuilder::create(sprintf('h%d', $block->getLevel()))
+            ->withClasses($this->options['classes'])
+            ->append($block->getText())
+        ;
     }
 
     protected function getInterface(): string

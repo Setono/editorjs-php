@@ -6,6 +6,8 @@ namespace Setono\EditorJS\Renderer\BlockRenderer;
 
 use Setono\EditorJS\Parser\Block\BlockInterface;
 use Setono\EditorJS\Parser\Block\ListBlock\ListBlockInterface;
+use Setono\EditorJS\Renderer\HtmlBuilder;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ListBlockRenderer extends GenericBlockRenderer
 {
@@ -13,13 +15,25 @@ final class ListBlockRenderer extends GenericBlockRenderer
     {
         \assert($block instanceof ListBlockInterface);
 
-        $html = sprintf('<%sl>', $block->getStyle() === 'ordered' ? 'o' : 'u');
-        foreach ($block->getItems() as $item) {
-            $html .= sprintf('<li>%s</li>', $item);
-        }
-        $html .= sprintf('</%sl>', $block->getStyle() === 'ordered' ? 'o' : 'u');
+        return (string) HtmlBuilder::create(sprintf('%sl', $block->getStyle() === ListBlockInterface::STYLE_ORDERED ? 'o' : 'u'))
+            ->withClasses($this->options['classes'])
+            ->append(...array_map(
+                fn (string $item) => HtmlBuilder::create('li')->withClasses($this->options['itemClasses'])->append($item),
+                $block->getItems()
+            ))
+        ;
+    }
 
-        return $html;
+    /**
+     * @psalm-assert array{itemClasses: array<array-key, string>} $this->options
+     */
+    protected function configureOptions(OptionsResolver $optionsResolver): void
+    {
+        parent::configureOptions($optionsResolver);
+
+        $optionsResolver->setDefault('itemClasses', [])
+            ->setAllowedTypes('itemClasses', 'array')
+        ;
     }
 
     protected function getInterface(): string

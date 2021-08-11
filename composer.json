@@ -12,6 +12,7 @@
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
+        "symfony/options-resolver": "^5.3",
         "webmozart/assert": "^1.10"
     },
     "require-dev": {

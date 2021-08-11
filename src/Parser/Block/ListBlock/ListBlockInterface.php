@@ -8,6 +8,10 @@ use Setono\EditorJS\Parser\Block\BlockInterface;
 
 interface ListBlockInterface extends BlockInterface
 {
+    public const STYLE_ORDERED = 'ordered';
+
+    public const STYLE_UNORDERED = 'unordered';
+
     public function getStyle(): string;
 
     /**

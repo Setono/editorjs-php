@@ -28,6 +28,14 @@ final class ListBlock extends GenericBlock implements ListBlockInterface
         $this->items = $items;
     }
 
+    /**
+     * @return list<string>
+     */
+    public static function getStyles(): array
+    {
+        return [self::STYLE_ORDERED, self::STYLE_UNORDERED];
+    }
+
     public static function createFromBlock(BlockInterface $block): self
     {
         $data = $block->getData();
@@ -62,6 +70,7 @@ final class ListBlock extends GenericBlock implements ListBlockInterface
 
         Assert::keyExists($data['data'], 'style');
         Assert::string($data['data']['style']);
+        Assert::oneOf($data['data']['style'], self::getStyles());
 
         Assert::keyExists($data['data'], 'items');
         Assert::isArray($data['data']['items']);
