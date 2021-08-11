@@ -28,15 +28,6 @@ class GenericBlock implements BlockInterface
         return new self($data['id'], $data['type'], $data);
     }
 
-    /**
-     * This makes it easier to create concrete block classes together with the GenericBlockParser.
-     * See for example DelimiterBlock
-     */
-    public static function createFromBlock(BlockInterface $block): BlockInterface
-    {
-        return $block;
-    }
-
     public function getId(): string
     {
         return $this->id;
