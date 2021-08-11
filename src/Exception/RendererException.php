@@ -8,10 +8,10 @@ use Setono\EditorJS\Parser\Block\BlockInterface;
 
 final class RendererException extends \RuntimeException implements ExceptionInterface
 {
-    public function __construct(BlockInterface $block)
+    public static function unsupportedBlock(BlockInterface $block): self
     {
-        $message = sprintf('Could not render block "%s" (id: %s).', $block->getType(), $block->getId());
+        $message = sprintf('Could not render block "%s" (id: %s). No block renderer supports this block', $block->getType(), $block->getId());
 
-        parent::__construct($message);
+        return new self($message);
     }
 }

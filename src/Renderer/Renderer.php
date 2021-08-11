@@ -28,7 +28,7 @@ final class Renderer implements RendererInterface
                 continue 2;
             }
 
-            throw new RendererException($block);
+            throw RendererException::unsupportedBlock($block);
         }
 
         return $html;
