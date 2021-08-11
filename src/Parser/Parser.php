@@ -31,7 +31,11 @@ final class Parser implements ParserInterface
             throw ParserException::invalidJson($e->getMessage());
         }
 
-        self::validate($data);
+        try {
+            self::validate($data);
+        } catch (\InvalidArgumentException $e) {
+            throw ParserException::invalidData($e->getMessage());
+        }
 
         $blockList = new BlockList();
 

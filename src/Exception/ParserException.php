@@ -13,6 +13,11 @@ final class ParserException extends \RuntimeException implements ExceptionInterf
         return new self($jsonError);
     }
 
+    public static function invalidData(string $error): self
+    {
+        return new self($error);
+    }
+
     /**
      * @param mixed $block
      */
