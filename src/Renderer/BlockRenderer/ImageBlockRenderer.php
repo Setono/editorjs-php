@@ -15,7 +15,6 @@ final class ImageBlockRenderer extends GenericBlockRenderer
     {
         \assert($block instanceof ImageBlockInterface);
 
-        // todo we don't use the withBorder, withBackground and stretched properties
         return (string) HtmlBuilder::create('div')
             ->withClasses($this->options['baseContainerClasses'])
             ->withClasses($this->options['withBorderClasses'])
