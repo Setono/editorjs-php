@@ -13,7 +13,7 @@ final class HtmlBuilder
 
     // found here: https://www.thoughtco.com/html-singleton-tags-3468620
     public const TAGS_WITH_NO_CLOSING_TAG = [
-        'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'
+        'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr',
     ];
 
     private bool $closingTag = true;
