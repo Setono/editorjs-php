@@ -16,10 +16,10 @@
         "webmozart/assert": "^1.10"
     },
     "require-dev": {
-        "infection/infection": "^0.24.0",
+        "infection/infection": "^0.25.0",
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.16.1",
-        "setono/code-quality-pack": "^2.1.2"
+        "setono/code-quality-pack": "^2.1.3"
     },
     "config": {
         "sort-packages": true
