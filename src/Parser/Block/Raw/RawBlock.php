@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Parser\Block\RawTool;
+namespace Setono\EditorJS\Parser\Block\Raw;
 
 use Setono\EditorJS\Parser\Block\BlockInterface;
 use Setono\EditorJS\Parser\Block\GenericBlock;
 use Webmozart\Assert\Assert;
 
-final class RawToolBlock extends GenericBlock implements RawToolBlockInterface
+final class RawBlock extends GenericBlock implements RawBlockInterface
 {
     private string $html;
 

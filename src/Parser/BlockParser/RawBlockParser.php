@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Parser\BlockParser;
 
-use Setono\EditorJS\Parser\Block\RawTool\RawToolBlock;
+use Setono\EditorJS\Parser\Block\Raw\RawBlock;
 
-final class RawToolParser extends GenericBlockParser
+final class RawBlockParser extends GenericBlockParser
 {
     protected function getType(): string
     {
-        return 'rawTool';
+        return 'raw';
     }
 
     protected function getBlockClass(): string
     {
-        return RawToolBlock::class;
+        return RawBlock::class;
     }
 }

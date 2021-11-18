@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Setono\EditorJS\Renderer\BlockRenderer;
 
 use Setono\EditorJS\Parser\Block\BlockInterface;
-use Setono\EditorJS\Parser\Block\RawTool\RawToolBlockInterface;
+use Setono\EditorJS\Parser\Block\Raw\RawBlockInterface;
 use Setono\EditorJS\Renderer\HtmlBuilder;
 
-final class RawToolBlockRenderer extends GenericBlockRenderer
+final class RawBlockRenderer extends GenericBlockRenderer
 {
     public function render(BlockInterface $block): string
     {
-        \assert($block instanceof RawToolBlockInterface);
+        \assert($block instanceof RawBlockInterface);
 
         return (string) HtmlBuilder::create('div')
             ->withClasses($this->options['classes'])
@@ -22,6 +22,6 @@ final class RawToolBlockRenderer extends GenericBlockRenderer
 
     protected function getInterface(): string
     {
-        return RawToolBlockInterface::class;
+        return RawBlockInterface::class;
     }
 }

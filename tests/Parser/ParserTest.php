@@ -11,7 +11,7 @@ use Setono\EditorJS\Parser\BlockParser\HeaderBlockParser;
 use Setono\EditorJS\Parser\BlockParser\ImageBlockParser;
 use Setono\EditorJS\Parser\BlockParser\ListBlockParser;
 use Setono\EditorJS\Parser\BlockParser\ParagraphBlockParser;
-use Setono\EditorJS\Parser\BlockParser\RawToolParser;
+use Setono\EditorJS\Parser\BlockParser\RawBlockParser;
 
 /**
  * @covers \Setono\EditorJS\Parser\Parser
@@ -29,7 +29,7 @@ final class ParserTest extends TestCase
         $parser->addBlockParser(new ListBlockParser());
         $parser->addBlockParser(new DelimiterBlockParser());
         $parser->addBlockParser(new ImageBlockParser());
-        $parser->addBlockParser(new RawToolParser());
+        $parser->addBlockParser(new RawBlockParser());
 
         $parser->parse(self::getTestData());
 
@@ -130,7 +130,7 @@ final class ParserTest extends TestCase
         },
         {
             "id" : "HzaeH6xIxi",
-            "type" : "rawTool",
+            "type" : "raw",
             "data" : {
                 "html" : "Some custom HTML"
             }
