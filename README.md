@@ -43,6 +43,30 @@ $blockRenderer->add(new RawBlockRenderer());
 $renderer = new Renderer($blockRenderer);
 $html = $renderer->render($parserResult);
 ```
+## EditorJS plugins supported
+- [ ] [attaches](https://github.com/editor-js/attaches)
+- [ ] [checklist](https://github.com/editor-js/checklist)
+- [ ] [code](https://github.com/editor-js/code)
+- [x] [delimiter](https://github.com/editor-js/delimiter)
+- [x] [embed](https://github.com/editor-js/embed)
+- [x] [header](https://github.com/editor-js/header)
+- [x] [image](https://github.com/editor-js/image)
+- [ ] [inline-code](https://github.com/editor-js/inline-code)
+- [ ] [link](https://github.com/editor-js/link)
+- [ ] [link-autocomplete](https://github.com/editor-js/link-autocomplete)
+- [x] [list](https://github.com/editor-js/list)
+- [ ] [marker](https://github.com/editor-js/marker)
+- [ ] [nested-list](https://github.com/editor-js/nested-list)
+- [x] [paragraph](https://github.com/editor-js/paragraph)
+- [ ] [personality](https://github.com/editor-js/personality)
+- [ ] [quote](https://github.com/editor-js/quote)
+- [x] [raw](https://github.com/editor-js/raw)
+- [ ] [simple-image](https://github.com/editor-js/simple-image)
+- [ ] [table](https://github.com/editor-js/table)
+- [ ] [underline](https://github.com/editor-js/underline)
+- [ ] [warning](https://github.com/editor-js/warning)
+
+A PR adding support for any of the above plugins would be awesome! Thank you :tada:
 
 [ico-version]: https://poser.pugx.org/setono/editorjs-php/v/stable
 [ico-license]: https://poser.pugx.org/setono/editorjs-php/license
