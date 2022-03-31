@@ -13,6 +13,7 @@
         "php": ">=7.4",
         "ext-json": "*",
         "azjezz/psl": "^1.6",
+        "psr/log": "^1.1",
         "symfony/options-resolver": "^4.4 || ^5.4 || ^6.0",
         "webmozart/assert": "^1.10"
     },
