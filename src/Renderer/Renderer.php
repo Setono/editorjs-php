@@ -7,9 +7,9 @@ namespace Setono\EditorJS\Renderer;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Setono\EditorJS\BlockRenderer\BlockRendererInterface;
 use Setono\EditorJS\Exception\RendererException;
 use Setono\EditorJS\Parser\ParserResult;
-use Setono\EditorJS\Renderer\BlockRenderer\BlockRendererInterface;
 
 final class Renderer implements RendererInterface, LoggerAwareInterface
 {

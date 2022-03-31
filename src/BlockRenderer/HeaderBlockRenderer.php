@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Renderer\BlockRenderer;
+namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
-use Setono\EditorJS\Block\ParagraphBlock;
+use Setono\EditorJS\Block\HeaderBlock;
 use Setono\EditorJS\Renderer\HtmlBuilder;
 
-final class ParagraphBlockRenderer extends GenericBlockRenderer
+final class HeaderBlockRenderer extends GenericBlockRenderer
 {
     public function render(Block $block): string
     {
-        \assert($block instanceof ParagraphBlock);
+        \assert($block instanceof HeaderBlock);
 
-        return (string) HtmlBuilder::create('p')
+        return (string) HtmlBuilder::create(sprintf('h%d', $block->level))
             ->withClasses($this->options['classes'])
             ->append($block->text)
         ;
@@ -22,6 +22,6 @@ final class ParagraphBlockRenderer extends GenericBlockRenderer
 
     protected function getBlockClass(): string
     {
-        return ParagraphBlock::class;
+        return HeaderBlock::class;
     }
 }

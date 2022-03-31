@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Renderer\BlockRenderer;
+namespace Setono\EditorJS\BlockRenderer;
 
 use PHPUnit\Framework\TestCase;
 use Setono\EditorJS\Block\ListBlock;
 
 /**
- * @covers \Setono\EditorJS\Renderer\BlockRenderer\ListBlockRenderer
+ * @covers \Setono\EditorJS\BlockRenderer\ListBlockRenderer
  */
 final class ListBlockRendererTest extends TestCase
 {

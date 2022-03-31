@@ -13,14 +13,14 @@ use Setono\EditorJS\BlockHydrator\ImageBlockHydrator;
 use Setono\EditorJS\BlockHydrator\ListBlockHydrator;
 use Setono\EditorJS\BlockHydrator\ParagraphBlockHydrator;
 use Setono\EditorJS\BlockHydrator\RawBlockHydrator;
+use Setono\EditorJS\BlockRenderer\CompositeBlockRenderer;
+use Setono\EditorJS\BlockRenderer\DelimiterBlockRenderer;
+use Setono\EditorJS\BlockRenderer\HeaderBlockRenderer;
+use Setono\EditorJS\BlockRenderer\ImageBlockRenderer;
+use Setono\EditorJS\BlockRenderer\ListBlockRenderer;
+use Setono\EditorJS\BlockRenderer\ParagraphBlockRenderer;
+use Setono\EditorJS\BlockRenderer\RawBlockRenderer;
 use Setono\EditorJS\Parser\Parser;
-use Setono\EditorJS\Renderer\BlockRenderer\CompositeBlockRenderer;
-use Setono\EditorJS\Renderer\BlockRenderer\DelimiterBlockRenderer;
-use Setono\EditorJS\Renderer\BlockRenderer\HeaderBlockRenderer;
-use Setono\EditorJS\Renderer\BlockRenderer\ImageBlockRenderer;
-use Setono\EditorJS\Renderer\BlockRenderer\ListBlockRenderer;
-use Setono\EditorJS\Renderer\BlockRenderer\ParagraphBlockRenderer;
-use Setono\EditorJS\Renderer\BlockRenderer\RawBlockRenderer;
 use Setono\EditorJS\Renderer\Renderer;
 
 final class IntegrationTest extends TestCase

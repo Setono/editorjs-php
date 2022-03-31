@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Renderer\BlockRenderer;
+namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ImageBlock;

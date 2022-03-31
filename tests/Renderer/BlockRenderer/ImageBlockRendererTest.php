@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Renderer\BlockRenderer;
+namespace Setono\EditorJS\BlockRenderer;
 
 use PHPUnit\Framework\TestCase;
 use Setono\EditorJS\Block\ImageBlock;
 
 /**
- * @covers \Setono\EditorJS\Renderer\BlockRenderer\ImageBlockRenderer
+ * @covers \Setono\EditorJS\BlockRenderer\ImageBlockRenderer
  */
 final class ImageBlockRendererTest extends TestCase
 {
