@@ -2,7 +2,8 @@ name: "build"
 on:
     push:
         branches:
-            - "master"
+            - "0.1.x"
+            - "0.2.x"
     pull_request: ~
     workflow_dispatch: ~
 
