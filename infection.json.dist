@@ -6,8 +6,8 @@
     },
     "logs": {
         "text": "php://stderr",
-        "badge": {
-            "branch": "master"
+        "stryker": {
+            "branch": "0.2.x"
         }
     },
     "minMsi": 100,
