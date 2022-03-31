@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Hydrator;
+namespace Setono\EditorJS\BlockHydrator;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ImageBlock;
 
 /**
- * @covers \Setono\EditorJS\Hydrator\ImageBlockHydrator
+ * @covers \Setono\EditorJS\BlockHydrator\ImageBlockHydrator
  */
 final class ImageBlockHydratorTest extends HydratorTestCase
 {
@@ -17,7 +17,7 @@ final class ImageBlockHydratorTest extends HydratorTestCase
         return new ImageBlock();
     }
 
-    protected function getHydrator(): HydratorInterface
+    protected function getHydrator(): BlockHydratorInterface
     {
         return new ImageBlockHydrator();
     }

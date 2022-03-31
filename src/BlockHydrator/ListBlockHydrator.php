@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Hydrator;
+namespace Setono\EditorJS\BlockHydrator;
 
 use Psl\Type;
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ListBlock;
 use Webmozart\Assert\Assert;
 
-final class ListBlockHydrator implements HydratorInterface
+final class ListBlockHydrator implements BlockHydratorInterface
 {
     /**
      * @param Block|ListBlock $block

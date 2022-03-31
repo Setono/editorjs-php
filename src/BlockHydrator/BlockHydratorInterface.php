@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Hydrator;
+namespace Setono\EditorJS\BlockHydrator;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Exception\HydratorException;
 
-interface HydratorInterface
+interface BlockHydratorInterface
 {
     /**
      * Will move (hydrate) data from the given data array onto the given Block object

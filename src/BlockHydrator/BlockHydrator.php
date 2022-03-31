@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Hydrator;
+namespace Setono\EditorJS\BlockHydrator;
 
 use Psl\Type;
 use Setono\EditorJS\Block\Block;
 
-final class BlockHydrator implements HydratorInterface
+final class BlockHydrator implements BlockHydratorInterface
 {
     public function hydrate(Block $block, array $data): void
     {

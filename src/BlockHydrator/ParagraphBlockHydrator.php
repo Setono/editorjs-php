@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Hydrator;
+namespace Setono\EditorJS\BlockHydrator;
 
 use Psl\Type;
 use Setono\EditorJS\Block\Block;
-use Setono\EditorJS\Block\HeaderBlock;
+use Setono\EditorJS\Block\ParagraphBlock;
 use Webmozart\Assert\Assert;
 
-final class HeaderBlockHydrator implements HydratorInterface
+final class ParagraphBlockHydrator implements BlockHydratorInterface
 {
     /**
-     * @param Block|HeaderBlock $block
+     * @param Block|ParagraphBlock $block
      */
     public function hydrate(Block $block, array $data): void
     {
@@ -21,19 +21,17 @@ final class HeaderBlockHydrator implements HydratorInterface
         $data = Type\shape([
             'data' => Type\shape([
                 'text' => Type\string(),
-                'level' => Type\int(),
             ]),
         ])->coerce($data);
 
         $block->text = $data['data']['text'];
-        $block->level = $data['data']['level'];
     }
 
     /**
-     * @psalm-assert-if-true HeaderBlock $block
+     * @psalm-assert-if-true ParagraphBlock $block
      */
     public function supports(Block $block, array $data): bool
     {
-        return $block instanceof HeaderBlock;
+        return $block instanceof ParagraphBlock;
     }
 }

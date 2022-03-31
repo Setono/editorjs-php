@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Hydrator;
+namespace Setono\EditorJS\BlockHydrator;
 
 use PHPUnit\Framework\TestCase;
 use Setono\EditorJS\Block\Block;
@@ -36,7 +36,7 @@ abstract class HydratorTestCase extends TestCase
 
     abstract protected function getBlock(): Block;
 
-    abstract protected function getHydrator(): HydratorInterface;
+    abstract protected function getHydrator(): BlockHydratorInterface;
 
     /**
      * It's much easier to get the JSON for each block so instead we convert the JSON in this test case when we need it

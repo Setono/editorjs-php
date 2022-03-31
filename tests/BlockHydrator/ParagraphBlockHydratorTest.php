@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Hydrator;
+namespace Setono\EditorJS\BlockHydrator;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ParagraphBlock;
 
 /**
- * @covers \Setono\EditorJS\Hydrator\ParagraphBlockHydrator
+ * @covers \Setono\EditorJS\BlockHydrator\ParagraphBlockHydrator
  */
 final class ParagraphBlockHydratorTest extends HydratorTestCase
 {
@@ -17,7 +17,7 @@ final class ParagraphBlockHydratorTest extends HydratorTestCase
         return new ParagraphBlock();
     }
 
-    protected function getHydrator(): HydratorInterface
+    protected function getHydrator(): BlockHydratorInterface
     {
         return new ParagraphBlockHydrator();
     }

@@ -12,15 +12,15 @@ use Setono\EditorJS\Block\ImageBlock;
 use Setono\EditorJS\Block\ListBlock;
 use Setono\EditorJS\Block\ParagraphBlock;
 use Setono\EditorJS\Block\RawBlock;
+use Setono\EditorJS\BlockHydrator\BlockHydratorInterface;
 use Setono\EditorJS\Decoder\DecoderInterface;
 use Setono\EditorJS\Decoder\PhpDecoder;
 use Setono\EditorJS\Exception\ParserException;
-use Setono\EditorJS\Hydrator\HydratorInterface;
 use Webmozart\Assert\Assert;
 
 final class Parser implements ParserInterface
 {
-    private HydratorInterface $hydrator;
+    private BlockHydratorInterface $hydrator;
 
     private DecoderInterface $decoder;
 
@@ -38,7 +38,7 @@ final class Parser implements ParserInterface
     /**
      * @param array<string, class-string<Block>>|null $typeToBlockMapping
      */
-    public function __construct(HydratorInterface $hydrator, DecoderInterface $decoder = null, array $typeToBlockMapping = null)
+    public function __construct(BlockHydratorInterface $hydrator, DecoderInterface $decoder = null, array $typeToBlockMapping = null)
     {
         $this->hydrator = $hydrator;
         $this->decoder = $decoder ?? new PhpDecoder();

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Hydrator;
+namespace Setono\EditorJS\BlockHydrator;
 
 use Setono\EditorJS\Block\Block;
 
-final class CompositeHydrator implements HydratorInterface
+final class CompositeHydrator implements BlockHydratorInterface
 {
-    /** @var list<HydratorInterface> */
+    /** @var list<BlockHydratorInterface> */
     private array $hydrators = [];
 
-    public function add(HydratorInterface $hydrator): void
+    public function add(BlockHydratorInterface $hydrator): void
     {
         $this->hydrators[] = $hydrator;
     }
