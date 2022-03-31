@@ -7,7 +7,7 @@ namespace Setono\EditorJS\Renderer;
 use PHPUnit\Framework\TestCase;
 use Setono\EditorJS\Parser\Block\Paragraph\ParagraphBlock;
 use Setono\EditorJS\Parser\BlockList;
-use Setono\EditorJS\Parser\Result;
+use Setono\EditorJS\Parser\ParserResult;
 use Setono\EditorJS\Renderer\BlockRenderer\ParagraphBlockRenderer;
 
 /**
@@ -23,7 +23,7 @@ final class RendererTest extends TestCase
         $blockList = new BlockList();
         $blockList->add(new ParagraphBlock('asdf', 'paragraph', 'My text', []));
 
-        $parsingResult = new Result(new \DateTimeImmutable(), '2.0.0', $blockList);
+        $parsingResult = new ParserResult(new \DateTimeImmutable(), '2.0.0', $blockList);
 
         $renderer = new Renderer();
         $renderer->addBlockRenderer(new ParagraphBlockRenderer());

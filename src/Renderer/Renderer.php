@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Setono\EditorJS\Renderer;
 
 use Setono\EditorJS\Exception\RendererException;
-use Setono\EditorJS\Parser\Result;
+use Setono\EditorJS\Parser\ParserResult;
 use Setono\EditorJS\Renderer\BlockRenderer\BlockRendererInterface;
 
 final class Renderer implements RendererInterface
@@ -13,11 +13,11 @@ final class Renderer implements RendererInterface
     /** @var list<BlockRendererInterface> */
     private array $blockRenderers = [];
 
-    public function render(Result $parsingResult): string
+    public function render(ParserResult $parsingResult): string
     {
         $html = '';
 
-        foreach ($parsingResult->getBlockList() as $block) {
+        foreach ($parsingResult->blocks as $block) {
             foreach ($this->blockRenderers as $blockRenderer) {
                 if (!$blockRenderer->supports($block)) {
                     continue;

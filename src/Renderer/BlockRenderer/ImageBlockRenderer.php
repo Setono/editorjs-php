@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Renderer\BlockRenderer;
 
-use Setono\EditorJS\Parser\Block\BlockInterface;
-use Setono\EditorJS\Parser\Block\Image\ImageBlockInterface;
+use Setono\EditorJS\Block\Block;
+use Setono\EditorJS\Block\ImageBlock;
 use Setono\EditorJS\Renderer\HtmlBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ImageBlockRenderer extends GenericBlockRenderer
 {
-    public function render(BlockInterface $block): string
+    public function render(Block $block): string
     {
-        \assert($block instanceof ImageBlockInterface);
+        \assert($block instanceof ImageBlock);
 
         return (string) HtmlBuilder::create('div')
             ->withClasses($this->options['baseContainerClasses'])
@@ -26,14 +26,14 @@ final class ImageBlockRenderer extends GenericBlockRenderer
                 ->append(
                     HtmlBuilder::create('img')
                     ->withClasses($this->options['imageClasses'])
-                    ->withAttribute('src', $block->getFile()->getUrl())
-                    ->withAttribute('alt', $block->getCaption())
+                    ->withAttribute('src', $block->url)
+                    ->withAttribute('alt', $block->caption)
                 )
             )
             ->append(
                 HtmlBuilder::create('div')
                 ->withClasses($this->options['captionContainerClasses'])
-                ->append($block->getCaption())
+                ->append($block->caption)
             )
         ;
     }
@@ -62,8 +62,8 @@ final class ImageBlockRenderer extends GenericBlockRenderer
         ;
     }
 
-    protected function getInterface(): string
+    protected function getBlockClass(): string
     {
-        return ImageBlockInterface::class;
+        return ImageBlock::class;
     }
 }

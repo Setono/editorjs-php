@@ -4,26 +4,51 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Parser;
 
+use Setono\EditorJS\Block\Block;
+use Setono\EditorJS\Block\DelimiterBlock;
+use Setono\EditorJS\Block\EmbedBlock;
+use Setono\EditorJS\Block\HeaderBlock;
+use Setono\EditorJS\Block\ImageBlock;
+use Setono\EditorJS\Block\ListBlock;
+use Setono\EditorJS\Block\ParagraphBlock;
+use Setono\EditorJS\Block\RawBlock;
 use Setono\EditorJS\Decoder\DecoderInterface;
 use Setono\EditorJS\Decoder\PhpDecoder;
 use Setono\EditorJS\Exception\ParserException;
-use Setono\EditorJS\Parser\Block\GenericBlock;
-use Setono\EditorJS\Parser\BlockParser\BlockParserInterface;
+use Setono\EditorJS\Hydrator\HydratorInterface;
 use Webmozart\Assert\Assert;
 
 final class Parser implements ParserInterface
 {
+    private HydratorInterface $hydrator;
+
     private DecoderInterface $decoder;
 
-    /** @var list<BlockParserInterface> */
-    private array $blockParsers = [];
+    /** @var array<string, class-string<Block>> */
+    private array $typeToBlockMapping = [
+        'delimiter' => DelimiterBlock::class,
+        'embed' => EmbedBlock::class,
+        'header' => HeaderBlock::class,
+        'image' => ImageBlock::class,
+        'list' => ListBlock::class,
+        'paragraph' => ParagraphBlock::class,
+        'raw' => RawBlock::class,
+    ];
 
-    public function __construct(DecoderInterface $decoder = null)
+    /**
+     * @param array<string, class-string<Block>>|null $typeToBlockMapping
+     */
+    public function __construct(HydratorInterface $hydrator, DecoderInterface $decoder = null, array $typeToBlockMapping = null)
     {
+        $this->hydrator = $hydrator;
         $this->decoder = $decoder ?? new PhpDecoder();
+
+        if (null !== $typeToBlockMapping) {
+            $this->typeToBlockMapping = array_merge($this->typeToBlockMapping, $typeToBlockMapping);
+        }
     }
 
-    public function parse(string $json): Result
+    public function parse(string $json): ParserResult
     {
         try {
             $data = $this->decoder->decode($json);
@@ -37,40 +62,32 @@ final class Parser implements ParserInterface
             throw ParserException::invalidData($e->getMessage());
         }
 
-        $blockList = new BlockList();
+        $blocks = [];
 
-        foreach ($data['blocks'] as $dataBlock) {
-            if (!is_array($dataBlock)) {
-                throw ParserException::invalidType($dataBlock);
+        foreach ($data['blocks'] as $blockData) {
+            if (!is_array($blockData) || !isset($blockData['type']) || !is_string($blockData['type'])) {
+                throw ParserException::invalidType($blockData);
             }
 
-            $block = GenericBlock::createFromData($dataBlock);
-
-            foreach ($this->blockParsers as $blockParser) {
-                if (!$blockParser->supports($block)) {
-                    continue;
-                }
-
-                try {
-                    $blockList->add($blockParser->parse($block));
-                } catch (\Throwable $e) {
-                    throw ParserException::invalidBlock($block, $e->getMessage());
-                }
-
-                continue 2;
+            if (!isset($this->typeToBlockMapping[$blockData['type']])) {
+                throw ParserException::unmappedBlockType($blockData['type']);
             }
 
-            throw ParserException::noBlockParser($block);
+            /** @var Block $block */
+            $block = new $this->typeToBlockMapping[$blockData['type']]();
+
+            if (!$this->hydrator->supports($block, $blockData)) {
+                throw ParserException::unsupportedBlockType($blockData['type']);
+            }
+
+            $this->hydrator->hydrate($block, $blockData);
+
+            $blocks[] = $block;
         }
 
         $time = new \DateTimeImmutable(sprintf('@%d', $data['time']));
 
-        return new Result($time, $data['version'], $blockList);
-    }
-
-    public function addBlockParser(BlockParserInterface $blockParser): void
-    {
-        $this->blockParsers[] = $blockParser;
+        return new ParserResult($time, $data['version'], $blocks);
     }
 
     /** @psalm-assert array{time: int, version: string, blocks: array<array-key, mixed>} $data */

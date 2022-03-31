@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Exception;
 
-use Setono\EditorJS\Parser\Block\BlockInterface;
-
 final class ParserException extends \RuntimeException implements ExceptionInterface
 {
     public static function invalidJson(string $jsonError): self
@@ -32,21 +30,13 @@ final class ParserException extends \RuntimeException implements ExceptionInterf
         return new self($message);
     }
 
-    public static function invalidBlock(BlockInterface $block, string $extraMessage = null): self
+    public static function unmappedBlockType(string $type): self
     {
-        $message = sprintf('Could not parse block "%s" (id: %s)', $block->getType(), $block->getId());
-
-        if (null !== $extraMessage) {
-            $message .= '. ' . $extraMessage;
-        }
-
-        return new self($message);
+        return new self(sprintf('The block type "%s" not mapped to any block. Did you forget to add the type to block mapping for this particular type?', $type));
     }
 
-    public static function noBlockParser(BlockInterface $block): self
+    public static function unsupportedBlockType(string $type): self
     {
-        $message = sprintf('No block parser for block "%s" (id: %s)', $block->getType(), $block->getId());
-
-        return new self($message);
+        return new self(sprintf('The block type "%s" is not supported by any hydrator. Did you forget to add a hydrator for this particular type?', $type));
     }
 }
