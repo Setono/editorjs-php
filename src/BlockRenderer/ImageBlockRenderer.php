@@ -39,7 +39,7 @@ final class ImageBlockRenderer extends GenericBlockRenderer
     }
 
     /**
-     * @psalm-assert array{baseContainerClasses: array<array-key, string>, imageContainerClasses: array<array-key, string>, captionContainerClasses: array<array-key, string>} $this->options
+     * @psalm-assert array{baseContainerClasses: list<string>, imageContainerClasses: list<string>, captionContainerClasses: list<string>} $this->options
      */
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {

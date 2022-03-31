@@ -18,10 +18,10 @@ final class HtmlBuilder
 
     private bool $closingTag = true;
 
-    /** @var array<string, array<array-key, string|null>> */
+    /** @var array<string, list<string>> */
     private array $attributes = [];
 
-    /** @var array<array-key, string> */
+    /** @var list<string> */
     private array $children = [];
 
     public function __construct(string $tag)
@@ -62,13 +62,13 @@ final class HtmlBuilder
     }
 
     /**
-     * @param mixed $value
+     * @param scalar|null $value
      *
      * @return $this
      */
     public function withAttribute(string $attribute, $value = null): self
     {
-        Assert::scalar($value);
+        Assert::nullOrScalar($value);
 
         $new = clone $this;
         if (!isset($new->attributes[$attribute])) {

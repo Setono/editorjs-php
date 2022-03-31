@@ -25,7 +25,7 @@ final class ListBlockRenderer extends GenericBlockRenderer
     }
 
     /**
-     * @psalm-assert array{itemClasses: array<array-key, string>} $this->options
+     * @psalm-assert array{itemClasses: list<string>} $this->options
      */
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {

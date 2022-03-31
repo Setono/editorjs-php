@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\BlockRenderer;
 
-use PHPUnit\Framework\TestCase;
+use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ImageBlock;
 
 /**
  * @covers \Setono\EditorJS\BlockRenderer\ImageBlockRenderer
  */
-final class ImageBlockRendererTest extends TestCase
+final class ImageBlockRendererTest extends BlockRendererTestCase
 {
-    /**
-     * @test
-     */
-    public function it_renders(): void
+    protected function getBlock(): Block
     {
         $block = new ImageBlock();
         $block->id = 'WsdafMasdf';
@@ -26,9 +23,23 @@ final class ImageBlockRendererTest extends TestCase
         $block->withBorder = true;
         $block->stretched = true;
 
-        $blockRenderer = new ImageBlockRenderer();
-        $html = $blockRenderer->render($block);
+        return $block;
+    }
 
-        self::assertSame('<div class="container-image with-border with-background stretched"><div class="image"><img src="https://example.com/image.jpg" alt="Cool image"></div><div class="caption">Cool image</div></div>', $html);
+    protected function getBlockRenderer(): BlockRendererInterface
+    {
+        return new ImageBlockRenderer();
+    }
+
+    protected function getExpectedHtml(): string
+    {
+        return <<<HTML
+<div class="container-image with-border with-background stretched">
+    <div class="image">
+        <img src="https://example.com/image.jpg" alt="Cool image">
+    </div>
+    <div class="caption">Cool image</div>
+</div>
+HTML;
     }
 }

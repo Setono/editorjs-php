@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\BlockRenderer;
 
-use PHPUnit\Framework\TestCase;
+use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ListBlock;
 
 /**
  * @covers \Setono\EditorJS\BlockRenderer\ListBlockRenderer
  */
-final class ListBlockRendererTest extends TestCase
+final class ListBlockRendererTest extends BlockRendererTestCase
 {
-    /**
-     * @test
-     */
-    public function it_renders(): void
+    protected function getBlock(): Block
     {
         $block = new ListBlock();
         $block->id = 'PqqMsdfbm';
@@ -23,9 +20,21 @@ final class ListBlockRendererTest extends TestCase
         $block->style = ListBlock::STYLE_ORDERED;
         $block->items = ['Item 1', 'Item 2'];
 
-        $blockRenderer = new ListBlockRenderer();
-        $html = $blockRenderer->render($block);
+        return $block;
+    }
 
-        self::assertSame('<ol><li>Item 1</li><li>Item 2</li></ol>', $html);
+    protected function getBlockRenderer(): BlockRendererInterface
+    {
+        return new ListBlockRenderer();
+    }
+
+    protected function getExpectedHtml(): string
+    {
+        return <<<HTML
+<ol>
+    <li>Item 1</li>
+    <li>Item 2</li>
+</ol>
+HTML;
     }
 }

@@ -25,7 +25,7 @@ abstract class GenericBlockRenderer implements BlockRendererInterface
     }
 
     /**
-     * @psalm-assert array{classes: array<array-key, string>} $this->options
+     * @psalm-assert array{classes: list<string>} $this->options
      */
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {

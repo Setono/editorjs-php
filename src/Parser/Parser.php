@@ -90,7 +90,7 @@ final class Parser implements ParserInterface
         return new ParserResult($time, $data['version'], $blocks);
     }
 
-    /** @psalm-assert array{time: int, version: string, blocks: array<array-key, mixed>} $data */
+    /** @psalm-assert array{time: int, version: string, blocks: list<mixed>} $data */
     private static function validate(array $data): void
     {
         Assert::keyExists($data, 'time');
