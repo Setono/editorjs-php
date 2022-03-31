@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Setono\EditorJS\Renderer\BlockRenderer;
 
 use PHPUnit\Framework\TestCase;
-use Setono\EditorJS\Parser\Block\ListBlock\ListBlock;
+use Setono\EditorJS\Block\ListBlock;
 
 /**
  * @covers \Setono\EditorJS\Renderer\BlockRenderer\ListBlockRenderer
@@ -17,7 +17,11 @@ final class ListBlockRendererTest extends TestCase
      */
     public function it_renders(): void
     {
-        $block = new ListBlock('asdf', 'list', 'ordered', ['Item 1', 'Item 2'], []);
+        $block = new ListBlock();
+        $block->id = 'PqqMsdfbm';
+        $block->type = 'list';
+        $block->style = ListBlock::STYLE_ORDERED;
+        $block->items = ['Item 1', 'Item 2'];
 
         $blockRenderer = new ListBlockRenderer();
         $html = $blockRenderer->render($block);

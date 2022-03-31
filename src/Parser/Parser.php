@@ -85,7 +85,7 @@ final class Parser implements ParserInterface
             $blocks[] = $block;
         }
 
-        $time = new \DateTimeImmutable(sprintf('@%d', $data['time']));
+        $time = new \DateTimeImmutable(sprintf('@%d', (int) ($data['time'] / 1000))); // the time is in milliseconds
 
         return new ParserResult($time, $data['version'], $blocks);
     }

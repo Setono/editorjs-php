@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Hydrator;
 
-use Psl\Type;
 use Setono\EditorJS\Block\Block;
 
 final class CompositeHydrator implements HydratorInterface
 {
-    /**
-     * @var list<HydratorInterface>
-     */
+    /** @var list<HydratorInterface> */
     private array $hydrators = [];
 
     public function add(HydratorInterface $hydrator): void
@@ -22,7 +19,7 @@ final class CompositeHydrator implements HydratorInterface
     public function hydrate(Block $block, array $data): void
     {
         foreach ($this->hydrators as $hydrator) {
-            if($hydrator->supports($block, $data)) {
+            if ($hydrator->supports($block, $data)) {
                 $hydrator->hydrate($block, $data);
             }
         }
@@ -31,7 +28,7 @@ final class CompositeHydrator implements HydratorInterface
     public function supports(Block $block, array $data): bool
     {
         foreach ($this->hydrators as $hydrator) {
-            if($hydrator->supports($block, $data)) {
+            if ($hydrator->supports($block, $data)) {
                 return true;
             }
         }

@@ -2,48 +2,70 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Parser;
+namespace Setono\EditorJS;
 
 use PHPUnit\Framework\TestCase;
-use Setono\EditorJS\Decoder\PhpDecoder;
-use Setono\EditorJS\Parser\BlockParser\DelimiterBlockParser;
-use Setono\EditorJS\Parser\BlockParser\HeaderBlockParser;
-use Setono\EditorJS\Parser\BlockParser\ImageBlockParser;
-use Setono\EditorJS\Parser\BlockParser\ListBlockParser;
-use Setono\EditorJS\Parser\BlockParser\ParagraphBlockParser;
-use Setono\EditorJS\Parser\BlockParser\RawBlockParser;
+use Setono\EditorJS\Hydrator\BlockHydrator;
+use Setono\EditorJS\Hydrator\CompositeHydrator;
+use Setono\EditorJS\Hydrator\EmbedBlockHydrator;
+use Setono\EditorJS\Hydrator\HeaderBlockHydrator;
+use Setono\EditorJS\Hydrator\ImageBlockHydrator;
+use Setono\EditorJS\Hydrator\ListBlockHydrator;
+use Setono\EditorJS\Hydrator\ParagraphBlockHydrator;
+use Setono\EditorJS\Hydrator\RawBlockHydrator;
+use Setono\EditorJS\Parser\Parser;
+use Setono\EditorJS\Renderer\BlockRenderer\CompositeBlockRenderer;
+use Setono\EditorJS\Renderer\BlockRenderer\DelimiterBlockRenderer;
+use Setono\EditorJS\Renderer\BlockRenderer\HeaderBlockRenderer;
+use Setono\EditorJS\Renderer\BlockRenderer\ImageBlockRenderer;
+use Setono\EditorJS\Renderer\BlockRenderer\ListBlockRenderer;
+use Setono\EditorJS\Renderer\BlockRenderer\ParagraphBlockRenderer;
+use Setono\EditorJS\Renderer\BlockRenderer\RawBlockRenderer;
+use Setono\EditorJS\Renderer\Renderer;
 
-/**
- * @covers \Setono\EditorJS\Parser\Parser
- */
-final class ParserTest extends TestCase
+final class IntegrationTest extends TestCase
 {
     /**
      * @test
      */
-    public function it_parses(): void
+    public function it_parses_hydrates_and_renders(): void
     {
-        $parser = new Parser(new PhpDecoder());
-        $parser->addBlockParser(new HeaderBlockParser());
-        $parser->addBlockParser(new ParagraphBlockParser());
-        $parser->addBlockParser(new ListBlockParser());
-        $parser->addBlockParser(new DelimiterBlockParser());
-        $parser->addBlockParser(new ImageBlockParser());
-        $parser->addBlockParser(new RawBlockParser());
+        $hydrator = new CompositeHydrator();
+        $hydrator->add(new BlockHydrator());
+        $hydrator->add(new EmbedBlockHydrator());
+        $hydrator->add(new HeaderBlockHydrator());
+        $hydrator->add(new ImageBlockHydrator());
+        $hydrator->add(new ListBlockHydrator());
+        $hydrator->add(new ParagraphBlockHydrator());
+        $hydrator->add(new RawBlockHydrator());
 
-        $parser->parse(self::getTestData());
+        $parser = new Parser($hydrator);
+        $parserResult = $parser->parse($this->getInput());
 
-        self::assertTrue(true);
+        self::assertSame('2022-03-31', $parserResult->time->format('Y-m-d'));
+        self::assertSame('2.23.1', $parserResult->version);
+        self::assertCount(14, $parserResult->blocks);
+
+        $blockRenderer = new CompositeBlockRenderer();
+        $blockRenderer->add(new DelimiterBlockRenderer());
+        $blockRenderer->add(new HeaderBlockRenderer());
+        $blockRenderer->add(new ImageBlockRenderer());
+        $blockRenderer->add(new ListBlockRenderer());
+        $blockRenderer->add(new ParagraphBlockRenderer());
+        $blockRenderer->add(new RawBlockRenderer());
+
+        $renderer = new Renderer($blockRenderer);
+        $renderer->render($parserResult);
     }
 
-    private static function getTestData(): string
+    private function getInput(): string
     {
-        return <<<DATA
+        return <<<JSON
 {
-    "time" : 1636987638579,
+    "time" : 1648714636619,
     "blocks" : [
         {
-            "id" : "JVED_-yLPI",
+            "id" : "ddqzqrksLS",
             "type" : "header",
             "data" : {
                 "text" : "Editor.js",
@@ -51,14 +73,14 @@ final class ParserTest extends TestCase
             }
         },
         {
-            "id" : "q_mNayd7m_",
+            "id" : "y-xD62aVSs",
             "type" : "paragraph",
             "data" : {
                 "text" : "Hey. Meet the new Editor. On this page you can see it in action — try to edit this text."
             }
         },
         {
-            "id" : "MR9Gs06p6e",
+            "id" : "JsFDw3oujK",
             "type" : "header",
             "data" : {
                 "text" : "Key features",
@@ -66,7 +88,7 @@ final class ParserTest extends TestCase
             }
         },
         {
-            "id" : "taw2uCRvva",
+            "id" : "W7cxS38p72",
             "type" : "list",
             "data" : {
                 "style" : "unordered",
@@ -78,7 +100,7 @@ final class ParserTest extends TestCase
             }
         },
         {
-            "id" : "XEvXNqFkIm",
+            "id" : "59z0qpoRto",
             "type" : "header",
             "data" : {
                 "text" : "What does it mean «block-styled editor»",
@@ -86,21 +108,21 @@ final class ParserTest extends TestCase
             }
         },
         {
-            "id" : "59snV7cq3t",
+            "id" : "KwD6DL5mwr",
             "type" : "paragraph",
             "data" : {
                 "text" : "Workspace in classic editors is made of a single contenteditable element, used to create different HTML markups. Editor.js <mark class=\"cdx-marker\">workspace consists of separate Blocks: paragraphs, headings, images, lists, quotes, etc</mark>. Each of them is an independent contenteditable element (or more complex structure) provided by Plugin and united by Editor's Core."
             }
         },
         {
-            "id" : "cRc1kqGIPe",
+            "id" : "gz9NmNc07B",
             "type" : "paragraph",
             "data" : {
                 "text" : "There are dozens of <a href=\"https://github.com/editor-js\">ready-to-use Blocks</a> and the <a href=\"https://editorjs.io/creating-a-block-tool\">simple API</a> for creation any Block you need. For example, you can implement Blocks for Tweets, Instagram posts, surveys and polls, CTA-buttons and even games."
             }
         },
         {
-            "id" : "C6dvxuiW83",
+            "id" : "PRFZV4qY6Q",
             "type" : "header",
             "data" : {
                 "text" : "What does it mean clean data output",
@@ -108,47 +130,40 @@ final class ParserTest extends TestCase
             }
         },
         {
-            "id" : "XDoqP4Z6Qi",
+            "id" : "4Ps-zHrERz",
             "type" : "paragraph",
             "data" : {
                 "text" : "Classic WYSIWYG-editors produce raw HTML-markup with both content data and content appearance. On the contrary, Editor.js outputs JSON object with data of each Block. You can see an example below"
             }
         },
         {
-            "id" : "wYKmSNY0wp",
+            "id" : "tO01RYnEjt",
             "type" : "paragraph",
             "data" : {
                 "text" : "Given data can be used as you want: render with HTML for <code class=\"inline-code\">Web clients</code>, render natively for <code class=\"inline-code\">mobile apps</code>, create markup for <code class=\"inline-code\">Facebook Instant Articles</code> or <code class=\"inline-code\">Google AMP</code>, generate an <code class=\"inline-code\">audio version</code> and so on."
             }
         },
         {
-            "id" : "t3cDSauN9t",
+            "id" : "36yInXCuYz",
             "type" : "paragraph",
             "data" : {
                 "text" : "Clean data is useful to sanitize, validate and process on the backend."
             }
         },
         {
-            "id" : "HzaeH6xIxi",
-            "type" : "raw",
-            "data" : {
-                "html" : "Some custom HTML"
-            }
-        },
-        {
-            "id" : "Gl-lg5ceYg",
+            "id" : "60bwNzOlDg",
             "type" : "delimiter",
             "data" : {}
         },
         {
-            "id" : "ickzrYEM9E",
+            "id" : "jr5I6hVhs8",
             "type" : "paragraph",
             "data" : {
                 "text" : "We have been working on this project more than three years. Several large media projects help us to test and debug the Editor, to make it's core more stable. At the same time we significantly improved the API. Now, it can be used to create any plugin for any task. Hope you enjoy. 😏"
             }
         },
         {
-            "id" : "3N-0F7PDlx",
+            "id" : "rz-kI4Kemj",
             "type" : "image",
             "data" : {
                 "file" : {
@@ -161,8 +176,8 @@ final class ParserTest extends TestCase
             }
         }
     ],
-    "version" : "2.22.2"
+    "version" : "2.23.1"
 }
-DATA;
+JSON;
     }
 }
