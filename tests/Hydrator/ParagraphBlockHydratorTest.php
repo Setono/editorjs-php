@@ -5,20 +5,21 @@ declare(strict_types=1);
 namespace Setono\EditorJS\Hydrator;
 
 use Setono\EditorJS\Block\Block;
+use Setono\EditorJS\Block\ParagraphBlock;
 
 /**
- * @covers \Setono\EditorJS\Hydrator\BlockHydrator
+ * @covers \Setono\EditorJS\Hydrator\ParagraphBlockHydrator
  */
-final class BlockHydratorTest extends HydratorTestCase
+final class ParagraphBlockHydratorTest extends HydratorTestCase
 {
     protected function getBlock(): Block
     {
-        return new Block();
+        return new ParagraphBlock();
     }
 
     protected function getHydrator(): HydratorInterface
     {
-        return new BlockHydrator();
+        return new ParagraphBlockHydrator();
     }
 
     protected function getJson(): string
@@ -36,8 +37,7 @@ JSON;
 
     protected function assert(Block $block): void
     {
-        self::assertSame('tePlWkvizR', $block->id);
-        self::assertSame('paragraph', $block->type);
-        self::assertSame(['text' => 'test'], $block->data);
+        self::assertInstanceOf(ParagraphBlock::class, $block);
+        self::assertSame('test', $block->text);
     }
 }
