@@ -79,7 +79,7 @@ jobs:
                     dependency-versions: "${{ matrix.dependencies }}"
 
             -   name: "Run maglnet/composer-require-checker"
-                run: "composer-require-checker check"
+                run: "composer-require-checker check --config-file=$(pwd)/composer-require-checker.json"
 
             -   name: "Run composer-unused/composer-unused"
                 run: "composer-unused"
