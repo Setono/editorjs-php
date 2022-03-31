@@ -4,38 +4,51 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Renderer;
 
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Setono\EditorJS\Exception\RendererException;
-use Setono\EditorJS\Parser\Result;
+use Setono\EditorJS\Parser\ParserResult;
 use Setono\EditorJS\Renderer\BlockRenderer\BlockRendererInterface;
 
-final class Renderer implements RendererInterface
+final class Renderer implements RendererInterface, LoggerAwareInterface
 {
-    /** @var list<BlockRendererInterface> */
-    private array $blockRenderers = [];
+    private BlockRendererInterface $blockRenderer;
 
-    public function render(Result $parsingResult): string
+    private bool $throwOnUnsupported;
+
+    private LoggerInterface $logger;
+
+    public function __construct(BlockRendererInterface $blockRenderer, bool $throwOnUnsupported = true)
+    {
+        $this->blockRenderer = $blockRenderer;
+        $this->throwOnUnsupported = $throwOnUnsupported;
+        $this->logger = new NullLogger();
+    }
+
+    public function render(ParserResult $parsingResult): string
     {
         $html = '';
 
-        foreach ($parsingResult->getBlockList() as $block) {
-            foreach ($this->blockRenderers as $blockRenderer) {
-                if (!$blockRenderer->supports($block)) {
-                    continue;
+        foreach ($parsingResult->blocks as $block) {
+            if (!$this->blockRenderer->supports($block)) {
+                if ($this->throwOnUnsupported) {
+                    throw RendererException::unsupportedBlock($block);
                 }
 
-                $html .= $blockRenderer->render($block);
+                $this->logger->error(sprintf('Could not render block "%s" (id: %s). No block renderer supports this block', $block->type, $block->id));
 
-                continue 2;
+                continue;
             }
 
-            throw RendererException::unsupportedBlock($block);
+            $html = $this->blockRenderer->render($block);
         }
 
         return $html;
     }
 
-    public function addBlockRenderer(BlockRendererInterface $blockRenderer): void
+    public function setLogger(LoggerInterface $logger): void
     {
-        $this->blockRenderers[] = $blockRenderer;
+        $this->logger = $logger;
     }
 }

@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Renderer\BlockRenderer;
 
-use Setono\EditorJS\Parser\Block\BlockInterface;
-use Setono\EditorJS\Parser\Block\Paragraph\ParagraphBlockInterface;
+use Setono\EditorJS\Block\Block;
+use Setono\EditorJS\Block\ParagraphBlock;
 use Setono\EditorJS\Renderer\HtmlBuilder;
 
 final class ParagraphBlockRenderer extends GenericBlockRenderer
 {
-    public function render(BlockInterface $block): string
+    public function render(Block $block): string
     {
-        \assert($block instanceof ParagraphBlockInterface);
+        \assert($block instanceof ParagraphBlock);
 
         return (string) HtmlBuilder::create('p')
             ->withClasses($this->options['classes'])
-            ->append($block->getText())
+            ->append($block->text)
         ;
     }
 
-    protected function getInterface(): string
+    protected function getBlockClass(): string
     {
-        return ParagraphBlockInterface::class;
+        return ParagraphBlock::class;
     }
 }

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Renderer\BlockRenderer;
 
-use Setono\EditorJS\Parser\Block\BlockInterface;
+use Setono\EditorJS\Block\Block;
 
 interface BlockRendererInterface
 {
-    public function render(BlockInterface $block): string;
+    public function render(Block $block): string;
 
-    public function supports(BlockInterface $block): bool;
+    public function supports(Block $block): bool;
 }

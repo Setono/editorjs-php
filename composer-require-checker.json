@@ -1,0 +1,26 @@
+{
+    "symbol-whitelist": [
+        "array",
+        "bool",
+        "callable",
+        "false",
+        "float",
+        "int",
+        "iterable",
+        "null",
+        "object",
+        "parent",
+        "self",
+        "static",
+        "string",
+        "true",
+        "void",
+        "Psl\\Type\\bool",
+        "Psl\\Type\\dict",
+        "Psl\\Type\\int",
+        "Psl\\Type\\mixed",
+        "Psl\\Type\\shape",
+        "Psl\\Type\\string",
+        "Psl\\Type\\vec"
+    ]
+}

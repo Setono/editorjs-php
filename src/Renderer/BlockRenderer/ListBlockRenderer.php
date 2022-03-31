@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Renderer\BlockRenderer;
 
-use Setono\EditorJS\Parser\Block\BlockInterface;
-use Setono\EditorJS\Parser\Block\ListBlock\ListBlockInterface;
+use Setono\EditorJS\Block\Block;
+use Setono\EditorJS\Block\ListBlock;
 use Setono\EditorJS\Renderer\HtmlBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ListBlockRenderer extends GenericBlockRenderer
 {
-    public function render(BlockInterface $block): string
+    public function render(Block $block): string
     {
-        \assert($block instanceof ListBlockInterface);
+        \assert($block instanceof ListBlock);
 
-        return (string) HtmlBuilder::create(sprintf('%sl', $block->getStyle() === ListBlockInterface::STYLE_ORDERED ? 'o' : 'u'))
+        return (string) HtmlBuilder::create(sprintf('%sl', $block->style === ListBlock::STYLE_ORDERED ? 'o' : 'u'))
             ->withClasses($this->options['classes'])
             ->append(...array_map(
                 fn (string $item) => HtmlBuilder::create('li')->withClasses($this->options['itemClasses'])->append($item),
-                $block->getItems()
+                $block->items
             ))
         ;
     }
@@ -36,8 +36,8 @@ final class ListBlockRenderer extends GenericBlockRenderer
         ;
     }
 
-    protected function getInterface(): string
+    protected function getBlockClass(): string
     {
-        return ListBlockInterface::class;
+        return ListBlock::class;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Renderer\BlockRenderer;
 
-use Setono\EditorJS\Parser\Block\BlockInterface;
+use Setono\EditorJS\Block\Block;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class GenericBlockRenderer implements BlockRendererInterface
@@ -19,9 +19,9 @@ abstract class GenericBlockRenderer implements BlockRendererInterface
         $this->options = $resolver->resolve($options);
     }
 
-    public function supports(BlockInterface $block): bool
+    public function supports(Block $block): bool
     {
-        return is_a($block, $this->getInterface(), true);
+        return is_a($block, $this->getBlockClass(), true);
     }
 
     /**
@@ -35,7 +35,7 @@ abstract class GenericBlockRenderer implements BlockRendererInterface
     }
 
     /**
-     * @return class-string
+     * @return class-string<Block>
      */
-    abstract protected function getInterface(): string;
+    abstract protected function getBlockClass(): string;
 }

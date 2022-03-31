@@ -49,7 +49,7 @@ final class HtmlBuilder
     }
 
     /**
-     * @param array<array-key, string> $classes
+     * @param list<string> $classes
      */
     public function withClasses(array $classes): self
     {

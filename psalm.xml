@@ -14,6 +14,7 @@
     </projectFiles>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+        <pluginClass class="Psl\Psalm\Plugin"/>
     </plugins>
     <issueHandlers>
         <MixedArgument>
@@ -21,5 +22,11 @@
                 <referencedFunction name="Setono\EditorJS\Renderer\HtmlBuilder::withClasses"/>
             </errorLevel>
         </MixedArgument>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="src/Block"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+        <UnnecessaryVarAnnotation errorLevel="suppress"/>
     </issueHandlers>
 </psalm>
