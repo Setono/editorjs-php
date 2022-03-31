@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Renderer;
+namespace Setono\EditorJS\HtmlBuilder;
 
 // todo extract into library
 use Webmozart\Assert\Assert;

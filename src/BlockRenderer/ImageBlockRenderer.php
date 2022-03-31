@@ -6,7 +6,7 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ImageBlock;
-use Setono\EditorJS\Renderer\HtmlBuilder;
+use Setono\EditorJS\HtmlBuilder\HtmlBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ImageBlockRenderer extends GenericBlockRenderer

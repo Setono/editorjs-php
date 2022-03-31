@@ -6,7 +6,7 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ParagraphBlock;
-use Setono\EditorJS\Renderer\HtmlBuilder;
+use Setono\EditorJS\HtmlBuilder\HtmlBuilder;
 
 final class ParagraphBlockRenderer extends GenericBlockRenderer
 {

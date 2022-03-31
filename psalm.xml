@@ -19,7 +19,7 @@
     <issueHandlers>
         <MixedArgument>
             <errorLevel type="suppress">
-                <referencedFunction name="Setono\EditorJS\Renderer\HtmlBuilder::withClasses"/>
+                <referencedFunction name="Setono\EditorJS\HtmlBuilder\HtmlBuilder::withClasses"/>
             </errorLevel>
         </MixedArgument>
         <PropertyNotSetInConstructor>

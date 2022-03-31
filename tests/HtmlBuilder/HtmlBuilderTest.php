@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Setono\EditorJS\Renderer;
+namespace Setono\EditorJS\HtmlBuilder;
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Setono\EditorJS\Renderer\HtmlBuilder
+ * @covers \Setono\EditorJS\HtmlBuilder\HtmlBuilder
  */
 final class HtmlBuilderTest extends TestCase
 {
