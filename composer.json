@@ -12,11 +12,11 @@
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
-        "symfony/options-resolver": "^4.4 || ^5.3",
+        "symfony/options-resolver": "^4.4 || ^5.0 || ^6.0",
         "webmozart/assert": "^1.10"
     },
     "require-dev": {
-        "infection/infection": "^0.25.0",
+        "infection/infection": "^0.26",
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.16.1",
         "setono/code-quality-pack": "^2.1.3"

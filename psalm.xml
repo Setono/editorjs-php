@@ -15,4 +15,11 @@
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>
+    <issueHandlers>
+        <MixedArgument>
+            <errorLevel type="suppress">
+                <referencedFunction name="Setono\EditorJS\Renderer\HtmlBuilder::withClasses"/>
+            </errorLevel>
+        </MixedArgument>
+    </issueHandlers>
 </psalm>
