@@ -41,7 +41,7 @@ final class Renderer implements RendererInterface, LoggerAwareInterface
                 continue;
             }
 
-            $html = $this->blockRenderer->render($block);
+            $html .= $this->blockRenderer->render($block);
         }
 
         return $html;
