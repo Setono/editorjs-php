@@ -2,8 +2,7 @@ name: "build"
 on:
     push:
         branches:
-            - "0.1.x"
-            - "0.2.x"
+            - "*.x"
     pull_request: ~
     workflow_dispatch: ~
 
@@ -16,7 +15,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - "7.4"
+                    - "8.1"
 
                 dependencies:
                     - "highest"
@@ -54,9 +53,8 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - "7.4"
-                    - "8.0"
                     - "8.1"
+                    - "8.2"
 
                 dependencies:
                     - "highest"
@@ -79,10 +77,10 @@ jobs:
                     dependency-versions: "${{ matrix.dependencies }}"
 
             -   name: "Run maglnet/composer-require-checker"
-                run: "composer-require-checker check --config-file=$(pwd)/composer-require-checker.json"
+                run: "composer-require-checker check"
 
             -   name: "Run composer-unused/composer-unused"
-                run: "composer-unused || true" # todo remove this when you warnings does not have a non zero exit code
+                run: "composer-unused"
 
     static-code-analysis:
         name: "Static Code Analysis"
@@ -92,9 +90,8 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - "7.4"
-                    - "8.0"
                     - "8.1"
+                    - "8.2"
 
                 dependencies:
                     - "highest"
@@ -126,9 +123,8 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - "7.4"
-                    - "8.0"
                     - "8.1"
+                    - "8.2"
 
                 dependencies:
                     - "lowest"
@@ -161,7 +157,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - "8.1"
+                    - "8.2"
 
                 dependencies:
                     - "highest"
@@ -201,8 +197,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - "7.4"
-                    - "8.0"
+                    - "8.2"
 
                 dependencies:
                     - "highest"
@@ -226,4 +221,4 @@ jobs:
             -   name: "Run infection"
                 run: "vendor/bin/infection"
                 env:
-                    STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+                    STRYKER_DASHBOARD_API_KEY: "${{ secrets.STRYKER_DASHBOARD_API_KEY }}"
