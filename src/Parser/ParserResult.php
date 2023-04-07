@@ -8,20 +8,11 @@ use Setono\EditorJS\Block\Block;
 
 final class ParserResult
 {
-    public \DateTimeInterface $time;
-
-    public string $version;
-
-    /** @var list<Block> */
-    public array $blocks;
-
-    /**
-     * @param list<Block> $blocks
-     */
-    public function __construct(\DateTimeInterface $time, string $version, array $blocks)
-    {
-        $this->time = $time;
-        $this->version = $version;
-        $this->blocks = $blocks;
+    public function __construct(
+        public readonly \DateTimeImmutable $time,
+        public readonly string $version,
+        /** @var list<Block> $blocks */
+        public readonly array $blocks,
+    ) {
     }
 }

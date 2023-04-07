@@ -37,8 +37,13 @@ class Block
 
     /**
      * The Block classes should be dynamically instantiable, hence we can't have constructor arguments in child classes
+     *
+     * @param array<string, mixed> $data
      */
-    final public function __construct()
+    final public function __construct(string $id, string $type, array $data)
     {
+        $this->id = $id;
+        $this->type = $type;
+        $this->data = $data;
     }
 }

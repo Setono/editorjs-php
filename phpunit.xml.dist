@@ -8,7 +8,7 @@
         </include>
     </coverage>
     <testsuites>
-        <testsuite name="Codex Editor PHP Test Suite">
+        <testsuite name="EditorJS Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

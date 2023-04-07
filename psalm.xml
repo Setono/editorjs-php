@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <psalm
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    errorLevel="1"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    errorLevel="1"
 >
     <projectFiles>
         <directory name="src"/>
@@ -14,19 +14,5 @@
     </projectFiles>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
-        <pluginClass class="Psl\Psalm\Plugin"/>
     </plugins>
-    <issueHandlers>
-        <MixedArgument>
-            <errorLevel type="suppress">
-                <referencedFunction name="Setono\EditorJS\HtmlBuilder\HtmlBuilder::withClasses"/>
-            </errorLevel>
-        </MixedArgument>
-        <PropertyNotSetInConstructor>
-            <errorLevel type="suppress">
-                <directory name="src/Block"/>
-            </errorLevel>
-        </PropertyNotSetInConstructor>
-        <UnnecessaryVarAnnotation errorLevel="suppress"/>
-    </issueHandlers>
 </psalm>

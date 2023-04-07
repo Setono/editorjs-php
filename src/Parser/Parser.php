@@ -4,102 +4,37 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Parser;
 
-use Setono\EditorJS\Block\Block;
-use Setono\EditorJS\Block\DelimiterBlock;
-use Setono\EditorJS\Block\EmbedBlock;
-use Setono\EditorJS\Block\HeaderBlock;
-use Setono\EditorJS\Block\ImageBlock;
-use Setono\EditorJS\Block\ListBlock;
-use Setono\EditorJS\Block\ParagraphBlock;
-use Setono\EditorJS\Block\RawBlock;
-use Setono\EditorJS\BlockHydrator\BlockHydratorInterface;
-use Setono\EditorJS\Decoder\DecoderInterface;
-use Setono\EditorJS\Decoder\PhpDecoder;
-use Setono\EditorJS\Exception\ParserException;
-use Webmozart\Assert\Assert;
+use CuyZ\Valinor\Mapper\MappingError;
+use CuyZ\Valinor\Mapper\Source\Source;
+use CuyZ\Valinor\Mapper\Tree\Message\Messages;
+use CuyZ\Valinor\MapperBuilder;
 
 final class Parser implements ParserInterface
 {
-    private BlockHydratorInterface $hydrator;
-
-    private DecoderInterface $decoder;
-
-    /** @var array<string, class-string<Block>> */
-    private array $typeToBlockMapping = [
-        'delimiter' => DelimiterBlock::class,
-        'embed' => EmbedBlock::class,
-        'header' => HeaderBlock::class,
-        'image' => ImageBlock::class,
-        'list' => ListBlock::class,
-        'paragraph' => ParagraphBlock::class,
-        'raw' => RawBlock::class,
-    ];
-
-    /**
-     * @param array<string, class-string<Block>>|null $typeToBlockMapping
-     */
-    public function __construct(BlockHydratorInterface $hydrator, DecoderInterface $decoder = null, array $typeToBlockMapping = null)
-    {
-        $this->hydrator = $hydrator;
-        $this->decoder = $decoder ?? new PhpDecoder();
-
-        if (null !== $typeToBlockMapping) {
-            $this->typeToBlockMapping = array_merge($this->typeToBlockMapping, $typeToBlockMapping);
-        }
-    }
-
     public function parse(string $json): ParserResult
     {
         try {
-            $data = $this->decoder->decode($json);
-        } catch (\Throwable $e) {
-            throw ParserException::invalidJson($e->getMessage());
+            return (new MapperBuilder())
+                ->allowPermissiveTypes()
+                ->registerConstructor(function (int $time): \DateTimeImmutable {
+                    return new \DateTimeImmutable(sprintf('@%d', (int) ($time / 1000))); // the time from EditorJS is in milliseconds
+                })
+                ->mapper()
+                ->map(ParserResult::class, Source::json($json))
+            ;
+        } catch (MappingError $error) {
+            echo $error->getMessage() . "\n";
+
+            $messages = Messages::flattenFromNode($error->node());
+
+            // If only errors are wanted, they can be filtered
+            $errorMessages = $messages->errors();
+
+            foreach ($errorMessages as $message) {
+                echo $message . "\n";
+            }
         }
 
-        try {
-            self::validate($data);
-        } catch (\InvalidArgumentException $e) {
-            throw ParserException::invalidData($e->getMessage());
-        }
-
-        $blocks = [];
-
-        foreach ($data['blocks'] as $blockData) {
-            if (!is_array($blockData) || !isset($blockData['type']) || !is_string($blockData['type'])) {
-                throw ParserException::invalidType($blockData);
-            }
-
-            if (!isset($this->typeToBlockMapping[$blockData['type']])) {
-                throw ParserException::unmappedBlockType($blockData['type']);
-            }
-
-            /** @var Block $block */
-            $block = new $this->typeToBlockMapping[$blockData['type']]();
-
-            if (!$this->hydrator->supports($block, $blockData)) {
-                throw ParserException::unsupportedBlockType($blockData['type']);
-            }
-
-            $this->hydrator->hydrate($block, $blockData);
-
-            $blocks[] = $block;
-        }
-
-        $time = new \DateTimeImmutable(sprintf('@%d', (int) ($data['time'] / 1000))); // the time is in milliseconds
-
-        return new ParserResult($time, $data['version'], $blocks);
-    }
-
-    /** @psalm-assert array{time: int, version: string, blocks: list<mixed>} $data */
-    private static function validate(array $data): void
-    {
-        Assert::keyExists($data, 'time');
-        Assert::integer($data['time']);
-
-        Assert::keyExists($data, 'version');
-        Assert::string($data['version']);
-
-        Assert::keyExists($data, 'blocks');
-        Assert::isArray($data['blocks']);
+        throw new \LogicException('');
     }
 }
