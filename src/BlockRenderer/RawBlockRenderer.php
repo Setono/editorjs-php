@@ -6,22 +6,23 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\RawBlock;
-use Setono\EditorJS\HtmlBuilder\HtmlBuilder;
+use Setono\HtmlElement\HtmlElement;
+use Webmozart\Assert\Assert;
 
 final class RawBlockRenderer extends GenericBlockRenderer
 {
-    public function render(Block $block): string
+    public function render(Block $block): HtmlElement
     {
-        \assert($block instanceof RawBlock);
+        Assert::true($this->supports($block));
 
-        return (string) HtmlBuilder::create('div')
-            ->withClasses($this->options['classes'])
-            ->append($block->html)
-        ;
+        return HtmlElement::div($block->html)->withClasses($this->options['classes']);
     }
 
-    protected function getBlockClass(): string
+    /**
+     * @psalm-assert-if-true RawBlock $block
+     */
+    public function supports(Block $block): bool
     {
-        return RawBlock::class;
+        return $block instanceof RawBlock;
     }
 }

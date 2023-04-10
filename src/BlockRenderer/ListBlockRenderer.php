@@ -6,27 +6,27 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ListBlock;
-use Setono\EditorJS\HtmlBuilder\HtmlBuilder;
+use Setono\HtmlElement\HtmlElement;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Webmozart\Assert\Assert;
 
 final class ListBlockRenderer extends GenericBlockRenderer
 {
-    public function render(Block $block): string
+    /**
+     * @param ListBlock|Block $block
+     */
+    public function render(Block $block): HtmlElement
     {
-        \assert($block instanceof ListBlock);
+        Assert::true($this->supports($block));
 
-        return (string) HtmlBuilder::create(sprintf('%sl', $block->style === ListBlock::STYLE_ORDERED ? 'o' : 'u'))
+        return (new HtmlElement(sprintf('%sl', $block->style === ListBlock::STYLE_ORDERED ? 'o' : 'u'), ...array_map(
+            fn (string $item) => HtmlElement::li($item)->withClasses($this->options['itemClasses']),
+            $block->items,
+        )))
             ->withClasses($this->options['classes'])
-            ->append(...array_map(
-                fn (string $item) => HtmlBuilder::create('li')->withClasses($this->options['itemClasses'])->append($item),
-                $block->items
-            ))
         ;
     }
 
-    /**
-     * @psalm-assert array{itemClasses: list<string>} $this->options
-     */
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {
         parent::configureOptions($optionsResolver);
@@ -36,8 +36,11 @@ final class ListBlockRenderer extends GenericBlockRenderer
         ;
     }
 
-    protected function getBlockClass(): string
+    /**
+     * @psalm-assert-if-true ListBlock $block
+     */
+    public function supports(Block $block): bool
     {
-        return ListBlock::class;
+        return $block instanceof ListBlock;
     }
 }

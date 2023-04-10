@@ -6,6 +6,7 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Exception\RendererException;
+use Setono\HtmlElement\HtmlElement;
 
 final class CompositeBlockRenderer implements BlockRendererInterface
 {
@@ -17,7 +18,7 @@ final class CompositeBlockRenderer implements BlockRendererInterface
         $this->renderers[] = $blockRenderer;
     }
 
-    public function render(Block $block): string
+    public function render(Block $block): HtmlElement
     {
         foreach ($this->renderers as $renderer) {
             if ($renderer->supports($block)) {

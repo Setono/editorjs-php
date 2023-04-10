@@ -6,27 +6,26 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\EmbedBlock;
-use Setono\EditorJS\HtmlBuilder\HtmlBuilder;
+use Setono\HtmlElement\HtmlElement;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Webmozart\Assert\Assert;
 
 final class EmbedBlockRenderer extends GenericBlockRenderer
 {
-    public function render(Block $block): string
+    public function render(Block $block): HtmlElement
     {
-        \assert($block instanceof EmbedBlock);
+        Assert::true($this->supports($block));
 
-        return HtmlBuilder::create('div')
-            ->withClasses($this->options['containerClasses'])
-            ->append(
-                HtmlBuilder::create('iframe')
-                    ->withAttribute('width', $block->width)
-                    ->withAttribute('height', $block->height)
-                    ->withAttribute('src', $block->embed)
-                    ->withAttribute('frameborder', 0)
-                    ->withAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
-                    ->withAttribute('allowfullscreen')
-                    ->withClasses($this->options['classes'])
-            )->build();
+        return HtmlElement::div(
+            HtmlElement::iframe()
+                ->withAttribute('width', $block->width)
+                ->withAttribute('height', $block->height)
+                ->withAttribute('src', $block->embed)
+                ->withAttribute('frameborder', 0)
+                ->withAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
+                ->withAttribute('allowfullscreen')
+                ->withClasses($this->options['classes']),
+        )->withClasses($this->options['containerClasses']);
     }
 
     /**
@@ -41,8 +40,11 @@ final class EmbedBlockRenderer extends GenericBlockRenderer
         ;
     }
 
-    protected function getBlockClass(): string
+    /**
+     * @psalm-assert-if-true EmbedBlock $block
+     */
+    public function supports(Block $block): bool
     {
-        return EmbedBlock::class;
+        return $block instanceof EmbedBlock;
     }
 }

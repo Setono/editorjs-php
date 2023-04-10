@@ -14,13 +14,12 @@ final class ListBlockRendererTest extends BlockRendererTestCase
 {
     protected function getBlock(): Block
     {
-        $block = new ListBlock();
-        $block->id = 'PqqMsdfbm';
-        $block->type = 'list';
-        $block->style = ListBlock::STYLE_ORDERED;
-        $block->items = ['Item 1', 'Item 2'];
-
-        return $block;
+        return new ListBlock(
+            'PqqMsdfbm',
+            'list',
+            ListBlock::STYLE_ORDERED,
+            ['Item 1', 'Item 2'],
+        );
     }
 
     protected function getBlockRenderer(): BlockRendererInterface

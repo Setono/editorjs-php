@@ -6,22 +6,23 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ParagraphBlock;
-use Setono\EditorJS\HtmlBuilder\HtmlBuilder;
+use Setono\HtmlElement\HtmlElement;
+use Webmozart\Assert\Assert;
 
 final class ParagraphBlockRenderer extends GenericBlockRenderer
 {
-    public function render(Block $block): string
+    public function render(Block $block): HtmlElement
     {
-        \assert($block instanceof ParagraphBlock);
+        Assert::true($this->supports($block));
 
-        return (string) HtmlBuilder::create('p')
-            ->withClasses($this->options['classes'])
-            ->append($block->text)
-        ;
+        return HtmlElement::p($block->text)->withClasses($this->options['classes']);
     }
 
-    protected function getBlockClass(): string
+    /**
+     * @psalm-assert-if-true ParagraphBlock $block
+     */
+    public function supports(Block $block): bool
     {
-        return ParagraphBlock::class;
+        return $block instanceof ParagraphBlock;
     }
 }

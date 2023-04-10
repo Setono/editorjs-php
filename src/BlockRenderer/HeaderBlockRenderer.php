@@ -6,22 +6,25 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\HeaderBlock;
-use Setono\EditorJS\HtmlBuilder\HtmlBuilder;
+use Setono\HtmlElement\HtmlElement;
+use Webmozart\Assert\Assert;
 
 final class HeaderBlockRenderer extends GenericBlockRenderer
 {
-    public function render(Block $block): string
+    public function render(Block $block): HtmlElement
     {
-        \assert($block instanceof HeaderBlock);
+        Assert::true($this->supports($block));
 
-        return (string) HtmlBuilder::create(sprintf('h%d', $block->level))
+        return (new HtmlElement(sprintf('h%d', $block->level), $block->text))
             ->withClasses($this->options['classes'])
-            ->append($block->text)
         ;
     }
 
-    protected function getBlockClass(): string
+    /**
+     * @psalm-assert-if-true HeaderBlock $block
+     */
+    public function supports(Block $block): bool
     {
-        return HeaderBlock::class;
+        return $block instanceof HeaderBlock;
     }
 }

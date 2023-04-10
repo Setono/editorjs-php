@@ -14,5 +14,13 @@
     </projectFiles>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+        <pluginClass class="Psl\Psalm\Plugin"/>
     </plugins>
+    <issueHandlers>
+        <MixedArgument>
+            <errorLevel type="suppress">
+                <referencedFunction name="Setono\HtmlElement\HtmlElement::withClasses"/>
+            </errorLevel>
+        </MixedArgument>
+    </issueHandlers>
 </psalm>

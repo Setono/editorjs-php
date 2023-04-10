@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
+use Setono\EditorJS\Block\File;
 use Setono\EditorJS\Block\ImageBlock;
 
 /**
@@ -14,16 +15,15 @@ final class ImageBlockRendererTest extends BlockRendererTestCase
 {
     protected function getBlock(): Block
     {
-        $block = new ImageBlock();
-        $block->id = 'WsdafMasdf';
-        $block->type = 'image';
-        $block->url = 'https://example.com/image.jpg';
-        $block->caption = 'Cool image';
-        $block->withBackground = true;
-        $block->withBorder = true;
-        $block->stretched = true;
-
-        return $block;
+        return new ImageBlock(
+            'WsdafMasdf',
+            'image',
+            new File('https://example.com/image.jpg'),
+            'Cool image',
+            true,
+            true,
+            true,
+        );
     }
 
     protected function getBlockRenderer(): BlockRendererInterface

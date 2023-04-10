@@ -6,21 +6,23 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\DelimiterBlock;
-use Setono\EditorJS\HtmlBuilder\HtmlBuilder;
+use Setono\HtmlElement\HtmlElement;
+use Webmozart\Assert\Assert;
 
 final class DelimiterBlockRenderer extends GenericBlockRenderer
 {
-    public function render(Block $block): string
+    public function render(Block $block): HtmlElement
     {
-        \assert($block instanceof DelimiterBlock);
+        Assert::true($this->supports($block));
 
-        return (string) HtmlBuilder::create('hr')
-            ->withClasses($this->options['classes'])
-        ;
+        return HtmlElement::hr()->withClasses($this->options['classes']);
     }
 
-    protected function getBlockClass(): string
+    /**
+     * @psalm-assert-if-true DelimiterBlock $block
+     */
+    public function supports(Block $block): bool
     {
-        return DelimiterBlock::class;
+        return $block instanceof DelimiterBlock;
     }
 }

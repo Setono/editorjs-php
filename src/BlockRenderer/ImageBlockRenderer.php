@@ -6,35 +6,32 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ImageBlock;
-use Setono\EditorJS\HtmlBuilder\HtmlBuilder;
+use Setono\HtmlElement\HtmlElement;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Webmozart\Assert\Assert;
 
 final class ImageBlockRenderer extends GenericBlockRenderer
 {
-    public function render(Block $block): string
+    /**
+     * @param ImageBlock|Block $block
+     */
+    public function render(Block $block): HtmlElement
     {
-        \assert($block instanceof ImageBlock);
+        Assert::true($this->supports($block));
 
-        return (string) HtmlBuilder::create('div')
-            ->withClasses($this->options['baseContainerClasses'])
+        return HtmlElement::div(
+            HtmlElement::div(
+                HtmlElement::img()
+                    ->withClasses($this->options['imageClasses'])
+                    ->withAttribute('src', $block->file->url)
+                    ->withAttribute('alt', $block->caption),
+            )->withClasses($this->options['imageContainerClasses']),
+            HtmlElement::div($block->caption)
+                ->withClasses($this->options['captionContainerClasses']),
+        )->withClasses($this->options['baseContainerClasses'])
             ->withClasses($this->options['withBorderClasses'])
             ->withClasses($this->options['withBackgroundClasses'])
             ->withClasses($this->options['stretchedClasses'])
-            ->append(
-                HtmlBuilder::create('div')
-                ->withClasses($this->options['imageContainerClasses'])
-                ->append(
-                    HtmlBuilder::create('img')
-                    ->withClasses($this->options['imageClasses'])
-                    ->withAttribute('src', $block->url)
-                    ->withAttribute('alt', $block->caption)
-                )
-            )
-            ->append(
-                HtmlBuilder::create('div')
-                ->withClasses($this->options['captionContainerClasses'])
-                ->append($block->caption)
-            )
         ;
     }
 
@@ -62,8 +59,11 @@ final class ImageBlockRenderer extends GenericBlockRenderer
         ;
     }
 
-    protected function getBlockClass(): string
+    /**
+     * @psalm-assert-if-true ImageBlock $block
+     */
+    public function supports(Block $block): bool
     {
-        return ImageBlock::class;
+        return $block instanceof ImageBlock;
     }
 }

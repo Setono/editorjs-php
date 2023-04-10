@@ -10,16 +10,18 @@ final class ListBlock extends Block
 
     public const STYLE_UNORDERED = 'unordered';
 
-    public string $style;
-
-    /** @var list<string> */
-    public array $items;
-
-    /**
-     * @return list<string>
-     */
-    public static function getStyles(): array
-    {
-        return [self::STYLE_ORDERED, self::STYLE_UNORDERED];
+    public function __construct(
+        string $id,
+        string $type,
+        /**
+         * @var self::STYLE_* $style
+         */
+        public readonly string $style,
+        /**
+         * @var list<string> $items
+         */
+        public readonly array $items,
+    ) {
+        parent::__construct($id, $type);
     }
 }
