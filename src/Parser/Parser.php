@@ -39,7 +39,7 @@ final class Parser implements ParserInterface
     public function parse(string $json): ParserResult
     {
         try {
-            $data = json_decode($json, true, 512, \JSON_THROW_ON_ERROR);
+            $data = json_decode(json: $json, flags: \JSON_THROW_ON_ERROR);
         } catch (\JsonException $e) {
             throw new InvalidJsonException($json, $e);
         }

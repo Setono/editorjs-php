@@ -21,7 +21,7 @@ abstract class BlockRendererTestCase extends TestCase
         $html = preg_replace('/[ ]+/', ' ', $html);
         $html = str_replace('> <', '><', $html);
 
-        $blockRenderer = $blockRenderer ?? $this->getBlockRenderer();
+        $blockRenderer ??= $this->getBlockRenderer();
 
         self::assertSame($html, $blockRenderer->render($block)->render());
     }
