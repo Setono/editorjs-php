@@ -6,6 +6,7 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use PHPUnit\Framework\TestCase;
 use Setono\EditorJS\Block\Block;
+use Setono\EditorJS\Exception\UnsupportedBlockException;
 
 abstract class BlockRendererTestCase extends TestCase
 {
@@ -27,9 +28,22 @@ abstract class BlockRendererTestCase extends TestCase
     }
 
     /**
+     * @test
+     */
+    public function it_throws_exception_if_block_is_not_supported(): void
+    {
+        $this->expectException(UnsupportedBlockException::class);
+        $this->getBlockRenderer()->render(new UnsupportedBlock('id'));
+    }
+
+    /**
      * @return iterable<array-key, array{0: Block, 1: string, 2?: BlockRendererInterface}>
      */
     abstract protected function getData(): iterable;
 
     abstract protected function getBlockRenderer(): BlockRendererInterface;
+}
+
+final class UnsupportedBlock extends Block
+{
 }
