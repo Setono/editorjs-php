@@ -63,10 +63,6 @@ final class Parser implements ParserInterface
             $mapping = $this->getMapping($block['type']);
 
             foreach (array_keys($block['data']) as $key) {
-                if (!is_string($key)) {
-                    continue;
-                }
-
                 if ('id' === $key) {
                     throw ParserException::reservedKey($key, $block);
                 }
