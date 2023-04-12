@@ -15,7 +15,11 @@ use Setono\EditorJS\Block\ImageBlock;
 use Setono\EditorJS\Block\ListBlock;
 use Setono\EditorJS\Block\ParagraphBlock;
 use Setono\EditorJS\Block\RawBlock;
-use Setono\EditorJS\Exception\ParserException;
+use Setono\EditorJS\Exception\InvalidDataException;
+use Setono\EditorJS\Exception\InvalidJsonException;
+use Setono\EditorJS\Exception\MappingErrorException;
+use Setono\EditorJS\Exception\ReservedKeyException;
+use Setono\EditorJS\Exception\UnmappedTypeException;
 
 final class Parser implements ParserInterface
 {
@@ -37,7 +41,7 @@ final class Parser implements ParserInterface
         try {
             $data = json_decode($json, true, 512, \JSON_THROW_ON_ERROR);
         } catch (\JsonException $e) {
-            throw ParserException::invalidJson($json, $e);
+            throw new InvalidJsonException($json, $e);
         }
 
         $specification = Type\shape([
@@ -53,7 +57,7 @@ final class Parser implements ParserInterface
         try {
             $data = $specification->assert($data);
         } catch (Type\Exception\AssertException $e) {
-            throw ParserException::invalidData($json, $e);
+            throw new InvalidDataException($json, $e);
         }
 
         /** @var list<Block> $blocks */
@@ -64,7 +68,7 @@ final class Parser implements ParserInterface
 
             foreach (array_keys($block['data']) as $key) {
                 if ('id' === $key) {
-                    throw ParserException::reservedKey($key, $block);
+                    throw new ReservedKeyException($key, $block);
                 }
             }
 
@@ -74,7 +78,7 @@ final class Parser implements ParserInterface
                     ->map($mapping, array_merge($block, $block['data']))
                 ;
             } catch (MappingError $e) {
-                throw ParserException::mappingError($e, $block['type'], $mapping);
+                throw new MappingErrorException($e, $block['type'], $mapping);
             }
         }
 
@@ -105,12 +109,12 @@ final class Parser implements ParserInterface
     /**
      * @return class-string<Block>
      *
-     * @throws ParserException if the $type is not mapped
+     * @throws UnmappedTypeException if the $type is not mapped
      */
     public function getMapping(string $type): string
     {
         if (!$this->hasMapping($type)) {
-            throw ParserException::unmappedType($type);
+            throw new UnmappedTypeException($type);
         }
 
         return $this->mapping[$type];

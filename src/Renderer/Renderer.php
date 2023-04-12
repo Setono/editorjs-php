@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\BlockRenderer\BlockRendererInterface;
-use Setono\EditorJS\Exception\RendererException;
+use Setono\EditorJS\Exception\UnsupportedBlockException;
 use Setono\EditorJS\Parser\ParserResult;
 
 final class Renderer implements RendererInterface, LoggerAwareInterface
@@ -37,7 +37,7 @@ final class Renderer implements RendererInterface, LoggerAwareInterface
                 $html .= $blockRenderer->render($block)->render();
             } catch (\Throwable $e) {
                 if ($this->throwOnUnsupported) {
-                    throw RendererException::fromThrowable($e);
+                    throw $e;
                 }
 
                 $this->logger->error($e->getMessage());
@@ -55,7 +55,7 @@ final class Renderer implements RendererInterface, LoggerAwareInterface
             }
         }
 
-        throw RendererException::unsupportedBlock($block);
+        throw new UnsupportedBlockException($block);
     }
 
     /**

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
-use Setono\EditorJS\Exception\BlockRendererException;
+use Setono\EditorJS\Exception\RendererExceptionInterface;
 use Setono\HtmlElement\HtmlElement;
 
 /**
@@ -14,7 +14,7 @@ use Setono\HtmlElement\HtmlElement;
 interface BlockRendererInterface
 {
     /**
-     * @throws BlockRendererException
+     * @throws RendererExceptionInterface
      */
     public function render(Block $block): HtmlElement;
 

@@ -6,10 +6,9 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ListBlock;
-use Setono\EditorJS\Exception\BlockRendererException;
+use Setono\EditorJS\Exception\UnsupportedBlockException;
 use Setono\HtmlElement\HtmlElement;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Webmozart\Assert\Assert;
 
 final class ListBlockRenderer extends GenericBlockRenderer
 {
@@ -18,7 +17,7 @@ final class ListBlockRenderer extends GenericBlockRenderer
      */
     public function render(Block $block): HtmlElement
     {
-        BlockRendererException::assertSupportingBlock($this->supports($block), $block, $this);
+        UnsupportedBlockException::assert($this->supports($block), $block, $this);
 
         return (new HtmlElement(sprintf('%sl', $block->style === ListBlock::STYLE_ORDERED ? 'o' : 'u'), ...array_map(
             fn (string $item) => HtmlElement::li($item)->withClass($this->getClassOption('itemClass')),

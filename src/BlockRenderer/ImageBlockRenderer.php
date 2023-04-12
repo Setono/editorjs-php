@@ -6,10 +6,9 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ImageBlock;
-use Setono\EditorJS\Exception\BlockRendererException;
+use Setono\EditorJS\Exception\UnsupportedBlockException;
 use Setono\HtmlElement\HtmlElement;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Webmozart\Assert\Assert;
 
 final class ImageBlockRenderer extends GenericBlockRenderer
 {
@@ -18,7 +17,7 @@ final class ImageBlockRenderer extends GenericBlockRenderer
      */
     public function render(Block $block): HtmlElement
     {
-        BlockRendererException::assertSupportingBlock($this->supports($block), $block, $this);
+        UnsupportedBlockException::assert($this->supports($block), $block, $this);
 
         $container = HtmlElement::div()
             ->withClass($this->getClassOption('containerClass'))

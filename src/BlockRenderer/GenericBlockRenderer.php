@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\BlockRenderer;
 
-use Setono\EditorJS\Exception\BlockRendererException;
+use Setono\EditorJS\Exception\UndefinedOptionException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class GenericBlockRenderer implements BlockRendererInterface
@@ -39,7 +39,7 @@ abstract class GenericBlockRenderer implements BlockRendererInterface
     protected function getOption(string $option): mixed
     {
         if (!$this->hasOption($option)) {
-            throw BlockRendererException::undefinedOption($option, array_keys($this->options));
+            throw new UndefinedOptionException($option, array_keys($this->options));
         }
 
         return $this->options[$option];
