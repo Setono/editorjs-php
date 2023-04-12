@@ -12,7 +12,6 @@ final class ListBlock extends Block
 
     public function __construct(
         string $id,
-        string $type,
         /**
          * @var self::STYLE_* $style
          */
@@ -22,6 +21,6 @@ final class ListBlock extends Block
          */
         public readonly array $items,
     ) {
-        parent::__construct($id, $type);
+        parent::__construct($id);
     }
 }

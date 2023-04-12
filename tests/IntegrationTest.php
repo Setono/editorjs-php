@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Setono\EditorJS;
 
 use PHPUnit\Framework\TestCase;
-use Setono\EditorJS\BlockRenderer\CompositeBlockRenderer;
 use Setono\EditorJS\BlockRenderer\DelimiterBlockRenderer;
 use Setono\EditorJS\BlockRenderer\HeaderBlockRenderer;
 use Setono\EditorJS\BlockRenderer\ImageBlockRenderer;
@@ -20,7 +19,7 @@ final class IntegrationTest extends TestCase
     /**
      * @test
      */
-    public function it_parses_hydrates_and_renders(): void
+    public function it_parses_and_renders(): void
     {
         $parser = new Parser();
         $parserResult = $parser->parse($this->getInput());
@@ -29,16 +28,15 @@ final class IntegrationTest extends TestCase
         self::assertSame('2.23.1', $parserResult->version);
         self::assertCount(14, $parserResult->blocks);
 
-        //$blockRenderer = new CompositeBlockRenderer();
-        //$blockRenderer->add(new DelimiterBlockRenderer());
-        //$blockRenderer->add(new HeaderBlockRenderer());
-        //$blockRenderer->add(new ImageBlockRenderer());
-        //$blockRenderer->add(new ListBlockRenderer());
-        //$blockRenderer->add(new ParagraphBlockRenderer());
-        //$blockRenderer->add(new RawBlockRenderer());
-        //
-        //$renderer = new Renderer($blockRenderer);
-        //$renderer->render($parserResult);
+        $renderer = new Renderer();
+        $renderer->add(new DelimiterBlockRenderer());
+        $renderer->add(new HeaderBlockRenderer());
+        $renderer->add(new ImageBlockRenderer());
+        $renderer->add(new ListBlockRenderer());
+        $renderer->add(new ParagraphBlockRenderer());
+        $renderer->add(new RawBlockRenderer());
+
+        $renderer->render($parserResult);
     }
 
     private function getInput(): string

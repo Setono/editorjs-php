@@ -6,16 +6,17 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\DelimiterBlock;
+use Setono\EditorJS\Exception\BlockRendererException;
 use Setono\HtmlElement\HtmlElement;
-use Webmozart\Assert\Assert;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class DelimiterBlockRenderer extends GenericBlockRenderer
 {
     public function render(Block $block): HtmlElement
     {
-        Assert::true($this->supports($block));
+        BlockRendererException::assertSupportingBlock($this->supports($block), $block, $this);
 
-        return HtmlElement::hr()->withClasses($this->options['classes']);
+        return (new HtmlElement($this->getOption('tag')))->withClass($this->getClassOption('class'));
     }
 
     /**
@@ -24,5 +25,14 @@ final class DelimiterBlockRenderer extends GenericBlockRenderer
     public function supports(Block $block): bool
     {
         return $block instanceof DelimiterBlock;
+    }
+
+    protected function configureOptions(OptionsResolver $optionsResolver): void
+    {
+        parent::configureOptions($optionsResolver);
+
+        $optionsResolver->setDefault('tag', 'hr')
+            ->setAllowedTypes('tag', 'string')
+        ;
     }
 }

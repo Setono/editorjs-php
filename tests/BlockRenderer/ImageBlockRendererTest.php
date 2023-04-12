@@ -4,42 +4,53 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\BlockRenderer;
 
-use Setono\EditorJS\Block\Block;
-use Setono\EditorJS\Block\File;
+use Setono\EditorJS\Block\Image\File;
 use Setono\EditorJS\Block\ImageBlock;
 
-/**
- * @covers \Setono\EditorJS\BlockRenderer\ImageBlockRenderer
- */
 final class ImageBlockRendererTest extends BlockRendererTestCase
 {
-    protected function getBlock(): Block
+    protected function getData(): iterable
     {
-        return new ImageBlock(
-            'WsdafMasdf',
-            'image',
-            new File('https://example.com/image.jpg'),
-            'Cool image',
-            true,
-            true,
-            true,
-        );
+        yield [
+            new ImageBlock(
+                'WsdafMasdf',
+                new File('https://example.com/image.jpg'),
+                'Cool image',
+                true,
+                true,
+                true,
+            ),
+            <<<HTML
+<div class="editorjs-container-image editorjs-with-border editorjs-with-background editorjs-stretched">
+    <div class="editorjs-image">
+        <img src="https://example.com/image.jpg" alt="Cool image">
+    </div>
+    <div class="editorjs-caption">Cool image</div>
+</div>
+HTML
+        ];
+
+        yield [
+            new ImageBlock(
+                'WsdafMasdf',
+                new File('https://example.com/image.jpg'),
+                '',
+                true,
+                true,
+                true,
+            ),
+            <<<HTML
+<div class="editorjs-container-image editorjs-with-border editorjs-with-background editorjs-stretched">
+    <div class="editorjs-image">
+        <img src="https://example.com/image.jpg">
+    </div>
+</div>
+HTML
+        ];
     }
 
     protected function getBlockRenderer(): BlockRendererInterface
     {
         return new ImageBlockRenderer();
-    }
-
-    protected function getExpectedHtml(): string
-    {
-        return <<<HTML
-<div class="container-image with-border with-background stretched">
-    <div class="image">
-        <img src="https://example.com/image.jpg" alt="Cool image">
-    </div>
-    <div class="caption">Cool image</div>
-</div>
-HTML;
     }
 }

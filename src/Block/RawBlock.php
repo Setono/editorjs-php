@@ -6,8 +6,8 @@ namespace Setono\EditorJS\Block;
 
 final class RawBlock extends Block
 {
-    public function __construct(string $id, string $type, public readonly string $html)
+    public function __construct(string $id, public readonly string $html)
     {
-        parent::__construct($id, $type);
+        parent::__construct($id);
     }
 }

@@ -15,8 +15,8 @@ use Setono\EditorJS\Block\ImageBlock;
 use Setono\EditorJS\Block\ListBlock;
 use Setono\EditorJS\Block\ParagraphBlock;
 use Setono\EditorJS\Block\RawBlock;
+use Setono\EditorJS\Exception\ParserException;
 
-// todo add a configuration option to not throw exceptions, but log them instead
 final class Parser implements ParserInterface
 {
     private ?MapperBuilder $mapperBuilder = null;
@@ -32,13 +32,14 @@ final class Parser implements ParserInterface
         'raw' => RawBlock::class,
     ];
 
-    /**
-     * @throws MappingError if it's not possible to map a block to a DTO
-     * @throws \JsonException if the json is not valid JSON
-     */
     public function parse(string $json): ParserResult
     {
-        $data = json_decode($json, true, 512, \JSON_THROW_ON_ERROR);
+        try {
+            $data = json_decode($json, true, 512, \JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+            throw ParserException::invalidJson($json, $e);
+        }
+
         $specification = Type\shape([
             'time' => Type\int(),
             'version' => Type\string(),
@@ -49,27 +50,36 @@ final class Parser implements ParserInterface
             ])),
         ]);
 
-        $data = $specification->assert($data);
+        try {
+            $data = $specification->assert($data);
+        } catch (Type\Exception\AssertException $e) {
+            throw ParserException::invalidData($json, $e);
+        }
 
         /** @var list<Block> $blocks */
         $blocks = [];
 
         foreach ($data['blocks'] as $block) {
-            if (!$this->hasMapping($block['type'])) {
-                throw new \InvalidArgumentException(sprintf('No mapping found for the type "%s"', $block['type']));
-            }
+            $mapping = $this->getMapping($block['type']);
 
             foreach (array_keys($block['data']) as $key) {
-                if (in_array($key, ['id', 'type'])) {
-                    throw new \InvalidArgumentException(sprintf('The block with id "%s" has a reserved key in its data (%s)', $block['id'], $key));
+                if (!is_string($key)) {
+                    continue;
+                }
+
+                if ('id' === $key) {
+                    throw ParserException::reservedKey($key, $block);
                 }
             }
 
-            /** @psalm-suppress MixedAssignment */
-            $blocks[] = $this->getMapperBuilder()
-                ->mapper()
-                ->map($this->mapping[$block['type']], array_merge($block, $block['data']))
-            ;
+            try {
+                $blocks[] = $this->getMapperBuilder()
+                    ->mapper()
+                    ->map($mapping, array_merge($block, $block['data']))
+                ;
+            } catch (MappingError $e) {
+                throw ParserException::mappingError($e, $block['type'], $mapping);
+            }
         }
 
         return new ParserResult(
@@ -88,9 +98,26 @@ final class Parser implements ParserInterface
         return $this->mapperBuilder;
     }
 
+    /**
+     * @psalm-assert-if-true class-string<Block> $this->mapping[$type]
+     */
     public function hasMapping(string $type): bool
     {
         return isset($this->mapping[$type]);
+    }
+
+    /**
+     * @return class-string<Block>
+     *
+     * @throws ParserException if the $type is not mapped
+     */
+    public function getMapping(string $type): string
+    {
+        if (!$this->hasMapping($type)) {
+            throw ParserException::unmappedType($type);
+        }
+
+        return $this->mapping[$type];
     }
 
     /**

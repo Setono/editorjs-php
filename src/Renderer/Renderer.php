@@ -7,22 +7,22 @@ namespace Setono\EditorJS\Renderer;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\BlockRenderer\BlockRendererInterface;
 use Setono\EditorJS\Exception\RendererException;
 use Setono\EditorJS\Parser\ParserResult;
 
 final class Renderer implements RendererInterface, LoggerAwareInterface
 {
-    private BlockRendererInterface $blockRenderer;
-
-    private bool $throwOnUnsupported;
-
     private LoggerInterface $logger;
 
-    public function __construct(BlockRendererInterface $blockRenderer, bool $throwOnUnsupported = true)
+    /** @var list<BlockRendererInterface> */
+    private array $blockRenderers = [];
+
+    private bool $throwOnUnsupported = true;
+
+    public function __construct()
     {
-        $this->blockRenderer = $blockRenderer;
-        $this->throwOnUnsupported = $throwOnUnsupported;
         $this->logger = new NullLogger();
     }
 
@@ -31,20 +31,52 @@ final class Renderer implements RendererInterface, LoggerAwareInterface
         $html = '';
 
         foreach ($parsingResult->blocks as $block) {
-            if (!$this->blockRenderer->supports($block)) {
+            try {
+                $blockRenderer = $this->getBlockRenderer($block);
+
+                $html .= $blockRenderer->render($block)->render();
+            } catch (\Throwable $e) {
                 if ($this->throwOnUnsupported) {
-                    throw RendererException::unsupportedBlock($block);
+                    throw RendererException::fromThrowable($e);
                 }
 
-                $this->logger->error(sprintf('Could not render block "%s" (id: %s). No block renderer supports this block', $block->type, $block->id));
-
-                continue;
+                $this->logger->error($e->getMessage());
             }
-
-            $html .= $this->blockRenderer->render($block);
         }
 
         return $html;
+    }
+
+    private function getBlockRenderer(Block $block): BlockRendererInterface
+    {
+        foreach ($this->blockRenderers as $blockRenderer) {
+            if ($blockRenderer->supports($block)) {
+                return $blockRenderer;
+            }
+        }
+
+        throw RendererException::unsupportedBlock($block);
+    }
+
+    /**
+     * Adds a block renderer to the renderer
+     */
+    public function add(BlockRendererInterface $blockRenderer): void
+    {
+        $this->blockRenderers[] = $blockRenderer;
+    }
+
+    /**
+     * The renderer will not throw any exceptions, but instead log them as errors
+     */
+    public function doNotThrowOnUnsupported(): void
+    {
+        $this->throwOnUnsupported = false;
+    }
+
+    public function throwOnUnsupported(): void
+    {
+        $this->throwOnUnsupported = true;
     }
 
     public function setLogger(LoggerInterface $logger): void

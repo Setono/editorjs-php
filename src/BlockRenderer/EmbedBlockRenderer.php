@@ -6,15 +6,19 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\EmbedBlock;
+use Setono\EditorJS\Exception\BlockRendererException;
 use Setono\HtmlElement\HtmlElement;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Webmozart\Assert\Assert;
 
 final class EmbedBlockRenderer extends GenericBlockRenderer
 {
+    /**
+     * @param EmbedBlock|Block $block
+     */
     public function render(Block $block): HtmlElement
     {
-        Assert::true($this->supports($block));
+        BlockRendererException::assertSupportingBlock($this->supports($block), $block, $this);
 
         return HtmlElement::div(
             HtmlElement::iframe()
@@ -24,19 +28,16 @@ final class EmbedBlockRenderer extends GenericBlockRenderer
                 ->withAttribute('frameborder', 0)
                 ->withAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
                 ->withAttribute('allowfullscreen')
-                ->withClasses($this->options['classes']),
-        )->withClasses($this->options['containerClasses']);
+                ->withClass($this->getClassOption('class')),
+        )->withClass($this->getClassOption('containerClass'));
     }
 
-    /**
-     * @psalm-assert array{containerClasses: list<string>} $this->options
-     */
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {
         parent::configureOptions($optionsResolver);
 
-        $optionsResolver->setDefault('containerClasses', ['container-embed'])
-            ->setAllowedTypes('containerClasses', 'array')
+        $optionsResolver->setDefault('containerClass', 'container-embed')
+            ->setAllowedTypes('containerClass', 'string')
         ;
     }
 

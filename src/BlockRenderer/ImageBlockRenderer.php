@@ -6,6 +6,7 @@ namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\Block\ImageBlock;
+use Setono\EditorJS\Exception\BlockRendererException;
 use Setono\HtmlElement\HtmlElement;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Webmozart\Assert\Assert;
@@ -17,45 +18,55 @@ final class ImageBlockRenderer extends GenericBlockRenderer
      */
     public function render(Block $block): HtmlElement
     {
-        Assert::true($this->supports($block));
+        BlockRendererException::assertSupportingBlock($this->supports($block), $block, $this);
 
-        return HtmlElement::div(
-            HtmlElement::div(
-                HtmlElement::img()
-                    ->withClasses($this->options['imageClasses'])
-                    ->withAttribute('src', $block->file->url)
-                    ->withAttribute('alt', $block->caption),
-            )->withClasses($this->options['imageContainerClasses']),
-            HtmlElement::div($block->caption)
-                ->withClasses($this->options['captionContainerClasses']),
-        )->withClasses($this->options['baseContainerClasses'])
-            ->withClasses($this->options['withBorderClasses'])
-            ->withClasses($this->options['withBackgroundClasses'])
-            ->withClasses($this->options['stretchedClasses'])
+        $container = HtmlElement::div()
+            ->withClass($this->getClassOption('containerClass'))
+            ->withClass($this->getClassOption('withBorderClass'))
+            ->withClass($this->getClassOption('withBackgroundClass'))
+            ->withClass($this->getClassOption('stretchedClass'))
         ;
+
+        $image = HtmlElement::img()
+            ->withClass($this->getClassOption('imageClass'))
+            ->withAttribute('src', $block->file->url)
+        ;
+
+        if ($block->hasCaption()) {
+            $image = $image->withAttribute('alt', $block->caption);
+        }
+
+        $container = $container->append(
+            HtmlElement::div($image)->withClass($this->getClassOption('imageContainerClass')),
+        );
+
+        if ($block->hasCaption()) {
+            $container = $container->append(HtmlElement::div($block->caption)
+                ->withClass($this->getClassOption('captionContainerClass')))
+            ;
+        }
+
+        return $container;
     }
 
-    /**
-     * @psalm-assert array{baseContainerClasses: list<string>, imageContainerClasses: list<string>, captionContainerClasses: list<string>} $this->options
-     */
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {
         parent::configureOptions($optionsResolver);
 
-        $optionsResolver->setDefault('baseContainerClasses', ['container-image'])
-            ->setAllowedTypes('baseContainerClasses', 'array')
-            ->setDefault('imageContainerClasses', ['image'])
-            ->setAllowedTypes('imageContainerClasses', 'array')
-            ->setDefault('captionContainerClasses', ['caption'])
-            ->setAllowedTypes('captionContainerClasses', 'array')
-            ->setDefault('imageClasses', [])
-            ->setAllowedTypes('imageClasses', 'array')
-            ->setDefault('withBorderClasses', ['with-border'])
-            ->setAllowedTypes('withBorderClasses', 'array')
-            ->setDefault('withBackgroundClasses', ['with-background'])
-            ->setAllowedTypes('withBackgroundClasses', 'array')
-            ->setDefault('stretchedClasses', ['stretched'])
-            ->setAllowedTypes('stretchedClasses', 'array')
+        $optionsResolver->setDefault('containerClass', 'container-image')
+            ->setAllowedTypes('containerClass', 'string')
+            ->setDefault('imageContainerClass', 'image')
+            ->setAllowedTypes('imageContainerClass', 'string')
+            ->setDefault('captionContainerClass', 'caption')
+            ->setAllowedTypes('captionContainerClass', 'string')
+            ->setDefault('imageClass', '')
+            ->setAllowedTypes('imageClass', 'string')
+            ->setDefault('withBorderClass', 'with-border')
+            ->setAllowedTypes('withBorderClass', 'string')
+            ->setDefault('withBackgroundClass', 'with-background')
+            ->setAllowedTypes('withBackgroundClass', 'string')
+            ->setDefault('stretchedClass', 'stretched')
+            ->setAllowedTypes('stretchedClass', 'string')
         ;
     }
 

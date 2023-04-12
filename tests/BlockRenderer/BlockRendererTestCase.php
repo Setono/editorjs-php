@@ -11,20 +11,25 @@ abstract class BlockRendererTestCase extends TestCase
 {
     /**
      * @test
+     *
+     * @dataProvider getData
      */
-    public function it_renders(): void
+    public function it_renders(Block $block, string $html, BlockRendererInterface $blockRenderer = null): void
     {
         // this could be done much more beautiful, but it works :D
-        $expectedHtml = str_replace("\n", ' ', $this->getExpectedHtml());
-        $expectedHtml = preg_replace('/[ ]+/', ' ', $expectedHtml);
-        $expectedHtml = str_replace('> <', '><', $expectedHtml);
+        $html = str_replace("\n", ' ', $html);
+        $html = preg_replace('/[ ]+/', ' ', $html);
+        $html = str_replace('> <', '><', $html);
 
-        self::assertSame($expectedHtml, (string) $this->getBlockRenderer()->render($this->getBlock()));
+        $blockRenderer = $blockRenderer ?? $this->getBlockRenderer();
+
+        self::assertSame($html, $blockRenderer->render($block)->render());
     }
 
-    abstract protected function getBlock(): Block;
+    /**
+     * @return iterable<array-key, array{0: Block, 1: string, 2?: BlockRendererInterface}>
+     */
+    abstract protected function getData(): iterable;
 
     abstract protected function getBlockRenderer(): BlockRendererInterface;
-
-    abstract protected function getExpectedHtml(): string;
 }

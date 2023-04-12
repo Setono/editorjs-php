@@ -5,10 +5,17 @@ declare(strict_types=1);
 namespace Setono\EditorJS\BlockRenderer;
 
 use Setono\EditorJS\Block\Block;
+use Setono\EditorJS\Exception\BlockRendererException;
 use Setono\HtmlElement\HtmlElement;
 
+/**
+ * Implement this interface for each of your blocks
+ */
 interface BlockRendererInterface
 {
+    /**
+     * @throws BlockRendererException
+     */
     public function render(Block $block): HtmlElement;
 
     public function supports(Block $block): bool;

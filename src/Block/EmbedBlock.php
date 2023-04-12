@@ -8,7 +8,6 @@ final class EmbedBlock extends Block
 {
     public function __construct(
         string $id,
-        string $type,
         public readonly string $service,
         public readonly string $source,
         public readonly string $embed,
@@ -16,6 +15,6 @@ final class EmbedBlock extends Block
         public readonly int $height,
         public readonly ?string $caption = null,
     ) {
-        parent::__construct($id, $type);
+        parent::__construct($id);
     }
 }

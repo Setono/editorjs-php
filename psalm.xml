@@ -19,7 +19,7 @@
     <issueHandlers>
         <MixedArgument>
             <errorLevel type="suppress">
-                <referencedFunction name="Setono\HtmlElement\HtmlElement::withClasses"/>
+                <referencedFunction name="Setono\HtmlElement\HtmlElement::__construct"/>
             </errorLevel>
         </MixedArgument>
     </issueHandlers>

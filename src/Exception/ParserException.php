@@ -4,39 +4,90 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Exception;
 
+use CuyZ\Valinor\Mapper\MappingError;
+use CuyZ\Valinor\Mapper\Tree\Message\Messages;
+use Psl\Type\Exception\AssertException;
+use Setono\EditorJS\Block\Block;
+use Setono\EditorJS\Parser\Parser;
+
+/**
+ * @internal
+ */
 final class ParserException extends \RuntimeException implements ExceptionInterface
 {
-    public static function invalidJson(string $jsonError): self
+    public ?string $json = null;
+
+    public static function invalidJson(string $json, \JsonException $e): self
     {
-        return new self($jsonError);
+        $new = new self(sprintf(
+            'You have an error in your JSON. The error was: %s. You can access the supplied JSON in the %s property',
+            $e->getMessage(),
+            self::class . '$json',
+        ), 0, $e);
+
+        $new->json = $json;
+
+        return $new;
     }
 
-    public static function invalidData(string $error): self
+    public static function invalidData(string $json, AssertException $e): self
     {
-        return new self($error);
+        $new = new self(sprintf(
+            'You have an error in the supplied data. The error was: %s. You can access the supplied JSON in the %s property',
+            $e->getMessage(),
+            self::class . '$json',
+        ), 0, $e);
+
+        $new->json = $json;
+
+        return $new;
+    }
+
+    public static function unmappedType(string $type): self
+    {
+        return new self(sprintf(
+            'The block type "%s" was not mapped to any class. Did you forget to add the type to the mapping for this particular type? You can use %s',
+            $type,
+            Parser::class . '::setMapping()',
+        ));
     }
 
     /**
-     * @param mixed $block
+     * @param array{id: string, type: string, data: array} $block
      */
-    public static function invalidType($block): self
+    public static function reservedKey(string $key, array $block): self
     {
-        $message = 'Could not parse block';
+        $json = null;
 
-        if (is_string($block)) {
-            $message = sprintf('Could not parse block. Input was %s', $block);
+        try {
+            $json = json_encode($block, \JSON_THROW_ON_ERROR);
+        } catch (\JsonException) {
         }
 
-        return new self($message);
+        return new self(sprintf(
+            "The key '%s' found in data is a reserved key. The inputted block JSON was:\n\n%s",
+            $key,
+            $json ?? 'Invalid',
+        ));
     }
 
-    public static function unmappedBlockType(string $type): self
+    /**
+     * @param class-string<Block> $mapping
+     */
+    public static function mappingError(MappingError $e, string $type, string $mapping): self
     {
-        return new self(sprintf('The block type "%s" not mapped to any block. Did you forget to add the type to block mapping for this particular type?', $type));
-    }
+        $errorMessage = $e->getMessage() . "\n\n";
 
-    public static function unsupportedBlockType(string $type): self
-    {
-        return new self(sprintf('The block type "%s" is not supported by any hydrator. Did you forget to add a hydrator for this particular type?', $type));
+        $messages = Messages::flattenFromNode($e->node())->errors();
+        foreach ($messages as $message) {
+            $errorMessage .= $message . "\n";
+        }
+
+        return new self(sprintf(
+            'The block type "%s" could not be mapped to the class "%s". The error was: %s',
+            $type,
+            $mapping,
+            $errorMessage,
+        ), 0, $e);
     }
 }

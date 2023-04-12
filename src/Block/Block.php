@@ -14,10 +14,6 @@ abstract class Block
          * This is the unique id of the block, typically it looks something like this: GGt5HAoo0w
          */
         public readonly string $id,
-        /**
-         * This is the type of the block, this could be 'header', 'embed', 'delimiter' etc.
-         */
-        public readonly string $type,
     ) {
     }
 }
