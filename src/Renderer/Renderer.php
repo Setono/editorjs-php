@@ -34,7 +34,7 @@ final class Renderer implements RendererInterface, LoggerAwareInterface
             try {
                 $blockRenderer = $this->getBlockRenderer($block);
 
-                $html .= $blockRenderer->render($block)->render();
+                $html .= (string) $blockRenderer->render($block);
             } catch (\Throwable $e) {
                 if ($this->throwOnUnsupported) {
                     throw $e;

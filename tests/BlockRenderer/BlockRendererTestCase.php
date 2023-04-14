@@ -24,7 +24,7 @@ abstract class BlockRendererTestCase extends TestCase
 
         $blockRenderer ??= $this->getBlockRenderer();
 
-        self::assertSame($html, $blockRenderer->render($block)->render());
+        self::assertSame($html, (string) $blockRenderer->render($block));
     }
 
     /**

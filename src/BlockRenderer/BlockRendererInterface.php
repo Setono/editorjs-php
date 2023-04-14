@@ -16,7 +16,7 @@ interface BlockRendererInterface
     /**
      * @throws RendererExceptionInterface
      */
-    public function render(Block $block): HtmlElement;
+    public function render(Block $block): HtmlElement|string;
 
     public function supports(Block $block): bool;
 }
