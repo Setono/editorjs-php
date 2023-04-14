@@ -16,4 +16,12 @@ final class HeaderBlock extends Block
     ) {
         parent::__construct($id);
     }
+
+    /**
+     * This is a helper method to get the HTML tag for the header
+     */
+    public function getTag(): string
+    {
+        return sprintf('h%d', $this->level);
+    }
 }
