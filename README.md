@@ -1,4 +1,4 @@
-# PHP library for easing your development with the EditorJS
+# Easy EditorJS development in PHP
 
 [![Latest Version][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
@@ -14,14 +14,14 @@ composer require setono/editorjs-php
 
 ## Usage
 
-Here is a full example going from json to html output.
+A full example going from JSON to HTML output.
 
 ```php
 <?php
 use Setono\EditorJS\Parser\Parser;
 use Setono\EditorJS\Renderer\Renderer;
 
-$json = '...'; // this is the actual json you receive from the EditorJS instance
+$json = '...'; // this is the actual JSON you receive from the EditorJS instance
 
 $parser = new Parser();
 $parserResult = $parser->parse($json);
@@ -38,6 +38,7 @@ $html = $renderer->render($parserResult);
 ```
 
 ## EditorJS plugins supported
+
 - [ ] [attaches](https://github.com/editor-js/attaches)
 - [ ] [checklist](https://github.com/editor-js/checklist)
 - [ ] [code](https://github.com/editor-js/code)
