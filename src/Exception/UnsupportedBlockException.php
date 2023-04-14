@@ -7,9 +7,6 @@ namespace Setono\EditorJS\Exception;
 use Setono\EditorJS\Block\Block;
 use Setono\EditorJS\BlockRenderer\BlockRendererInterface;
 
-/**
- * @internal
- */
 final class UnsupportedBlockException extends \RuntimeException implements RendererExceptionInterface
 {
     public function __construct(Block $block, BlockRendererInterface $blockRenderer = null)

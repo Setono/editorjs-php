@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Exception;
 
-/**
- * @internal
- */
 final class ReservedKeyException extends \RuntimeException implements ParserExceptionInterface
 {
     public function __construct(string $key, array $block)

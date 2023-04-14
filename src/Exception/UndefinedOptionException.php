@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Exception;
 
-/**
- * @internal
- */
 final class UndefinedOptionException extends \RuntimeException implements RendererExceptionInterface
 {
     /**

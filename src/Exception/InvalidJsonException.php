@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Setono\EditorJS\Exception;
 
-/**
- * @internal
- */
 final class InvalidJsonException extends \InvalidArgumentException implements ParserExceptionInterface
 {
     public function __construct(public readonly string $json, \JsonException $e)

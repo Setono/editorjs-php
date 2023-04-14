@@ -6,9 +6,6 @@ namespace Setono\EditorJS\Exception;
 
 use Setono\EditorJS\Parser\Parser;
 
-/**
- * @internal
- */
 final class UnmappedTypeException extends \RuntimeException implements ParserExceptionInterface
 {
     public function __construct(string $type)

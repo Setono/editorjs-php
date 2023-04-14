@@ -8,9 +8,6 @@ use CuyZ\Valinor\Mapper\MappingError;
 use CuyZ\Valinor\Mapper\Tree\Message\Messages;
 use Setono\EditorJS\Block\Block;
 
-/**
- * @internal
- */
 final class MappingErrorException extends \InvalidArgumentException implements ParserExceptionInterface
 {
     /**

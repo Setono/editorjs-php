@@ -6,9 +6,6 @@ namespace Setono\EditorJS\Exception;
 
 use Psl\Type\Exception\AssertException;
 
-/**
- * @internal
- */
 final class InvalidDataException extends \RuntimeException implements ParserExceptionInterface
 {
     public function __construct(public readonly string $json, AssertException $e)

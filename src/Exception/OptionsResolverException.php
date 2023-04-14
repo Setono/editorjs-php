@@ -7,9 +7,6 @@ namespace Setono\EditorJS\Exception;
 use Setono\EditorJS\BlockRenderer\BlockRendererInterface;
 use Symfony\Component\OptionsResolver\Exception\ExceptionInterface;
 
-/**
- * @internal
- */
 final class OptionsResolverException extends \InvalidArgumentException implements RendererExceptionInterface
 {
     public function __construct(ExceptionInterface $e, BlockRendererInterface $blockRenderer)
