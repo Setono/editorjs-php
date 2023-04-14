@@ -17,4 +17,12 @@ final class EmbedBlock extends Block
     ) {
         parent::__construct($id);
     }
+
+    /**
+     * A helper method for the CSS attribute 'aspect-ratio'
+     */
+    public function getAspectRatio(): string
+    {
+        return sprintf('%d / %d', $this->width, $this->height);
+    }
 }

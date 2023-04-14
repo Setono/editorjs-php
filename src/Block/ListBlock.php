@@ -23,4 +23,16 @@ final class ListBlock extends Block
     ) {
         parent::__construct($id);
     }
+
+    /**
+     * This is a helper method to get the HTML tag for the list
+     */
+    public function getTag(): string
+    {
+        return match ($this->style) {
+            self::STYLE_ORDERED => 'ol',
+            self::STYLE_UNORDERED => 'ul',
+            default => throw new \LogicException(sprintf('The defined style "%s" is not valid', $this->style)),
+        };
+    }
 }
