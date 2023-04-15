@@ -68,7 +68,7 @@ final class RendererTest extends TestCase
 
         $renderer = new Renderer();
         $renderer->setLogger($logger);
-        $renderer->doNotThrowOnUnsupported();
+        $renderer->throwOnUnsupported(false);
 
         self::assertSame('', $renderer->render($parserResult));
         self::assertCount(1, $logger->messages);

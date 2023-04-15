@@ -67,16 +67,12 @@ final class Renderer implements RendererInterface, LoggerAwareInterface
     }
 
     /**
-     * The renderer will not throw any exceptions, but instead log them as errors
+     * If true the renderer will throw any exceptions it encounters.
+     * If false it will not throw the exceptions, but only log them as errors
      */
-    public function doNotThrowOnUnsupported(): void
+    public function throwOnUnsupported(bool $throwOnUnsupported): void
     {
-        $this->throwOnUnsupported = false;
-    }
-
-    public function throwOnUnsupported(): void
-    {
-        $this->throwOnUnsupported = true;
+        $this->throwOnUnsupported = $throwOnUnsupported;
     }
 
     public function setLogger(LoggerInterface $logger): void
