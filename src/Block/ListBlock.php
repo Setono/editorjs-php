@@ -10,6 +10,13 @@ final class ListBlock extends Block
 
     public const STYLE_UNORDERED = 'unordered';
 
+    /**
+     * This is a helper property containing the html tag for the list (i.e. ol/ul)
+     *
+     * @var 'ol'|'ul'
+     */
+    public string $tag;
+
     public function __construct(
         string $id,
         /**
@@ -22,17 +29,17 @@ final class ListBlock extends Block
         public readonly array $items,
     ) {
         parent::__construct($id);
+
+        $this->tag = $style === self::STYLE_ORDERED ? 'ol' : 'ul';
     }
 
     /**
      * This is a helper method to get the HTML tag for the list
+     *
+     * @deprecated Use the public $tag property instead
      */
     public function getTag(): string
     {
-        return match ($this->style) {
-            self::STYLE_ORDERED => 'ol',
-            self::STYLE_UNORDERED => 'ul',
-            default => throw new \LogicException(sprintf('The defined style "%s" is not valid', $this->style)),
-        };
+        return $this->tag;
     }
 }

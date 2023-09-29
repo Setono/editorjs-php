@@ -17,9 +17,9 @@ final class ListBlockTest extends BlockTestCase
     public function it_returns_tag(): void
     {
         $block = new ListBlock('id', ListBlock::STYLE_UNORDERED, ['Item 1']);
-        self::assertSame('ul', $block->getTag());
+        self::assertSame('ul', $block->tag);
 
         $block = new ListBlock('id', ListBlock::STYLE_ORDERED, ['Item 1']);
-        self::assertSame('ol', $block->getTag());
+        self::assertSame('ol', $block->tag);
     }
 }

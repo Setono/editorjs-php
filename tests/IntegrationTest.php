@@ -10,6 +10,7 @@ use Setono\EditorJS\BlockRenderer\HeaderBlockRenderer;
 use Setono\EditorJS\BlockRenderer\ImageBlockRenderer;
 use Setono\EditorJS\BlockRenderer\ListBlockRenderer;
 use Setono\EditorJS\BlockRenderer\ParagraphBlockRenderer;
+use Setono\EditorJS\BlockRenderer\QuoteBlockRenderer;
 use Setono\EditorJS\BlockRenderer\RawBlockRenderer;
 use Setono\EditorJS\Parser\Parser;
 use Setono\EditorJS\Renderer\Renderer;
@@ -26,7 +27,7 @@ final class IntegrationTest extends TestCase
 
         self::assertSame('2022-03-31', $parserResult->time->format('Y-m-d'));
         self::assertSame('2.23.1', $parserResult->version);
-        self::assertCount(14, $parserResult->blocks);
+        self::assertCount(15, $parserResult->blocks);
 
         $renderer = new Renderer();
         $renderer->add(new DelimiterBlockRenderer());
@@ -35,6 +36,7 @@ final class IntegrationTest extends TestCase
         $renderer->add(new ListBlockRenderer());
         $renderer->add(new ParagraphBlockRenderer());
         $renderer->add(new RawBlockRenderer());
+        $renderer->add(new QuoteBlockRenderer());
 
         $renderer->render($parserResult);
     }
@@ -154,6 +156,15 @@ final class IntegrationTest extends TestCase
                 "withBorder" : false,
                 "stretched" : false,
                 "withBackground" : false
+            }
+        },
+        {
+            "id": "g-y5teN5qG",
+            "type": "quote",
+            "data": {
+                "text": "We are the champions",
+                "caption": "Queen",
+                "alignment": "left"
             }
         }
     ],
