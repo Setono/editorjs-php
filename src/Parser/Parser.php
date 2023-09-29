@@ -14,6 +14,7 @@ use Setono\EditorJS\Block\HeaderBlock;
 use Setono\EditorJS\Block\ImageBlock;
 use Setono\EditorJS\Block\ListBlock;
 use Setono\EditorJS\Block\ParagraphBlock;
+use Setono\EditorJS\Block\QuoteBlock;
 use Setono\EditorJS\Block\RawBlock;
 use Setono\EditorJS\Exception\InvalidDataException;
 use Setono\EditorJS\Exception\InvalidJsonException;
@@ -33,6 +34,7 @@ final class Parser implements ParserInterface
         'image' => ImageBlock::class,
         'list' => ListBlock::class,
         'paragraph' => ParagraphBlock::class,
+        'quote' => QuoteBlock::class,
         'raw' => RawBlock::class,
     ];
 
