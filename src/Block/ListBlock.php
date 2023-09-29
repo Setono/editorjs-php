@@ -32,14 +32,4 @@ final class ListBlock extends Block
 
         $this->tag = $style === self::STYLE_ORDERED ? 'ol' : 'ul';
     }
-
-    /**
-     * This is a helper method to get the HTML tag for the list
-     *
-     * @deprecated Use the public $tag property instead
-     */
-    public function getTag(): string
-    {
-        return $this->tag;
-    }
 }
