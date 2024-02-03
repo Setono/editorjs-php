@@ -8,6 +8,7 @@ use CuyZ\Valinor\Mapper\MappingError;
 use CuyZ\Valinor\MapperBuilder;
 use Psl\Type;
 use Setono\EditorJS\Block\Block;
+use Setono\EditorJS\Block\CodeBlock;
 use Setono\EditorJS\Block\DelimiterBlock;
 use Setono\EditorJS\Block\EmbedBlock;
 use Setono\EditorJS\Block\HeaderBlock;
@@ -28,6 +29,7 @@ final class Parser implements ParserInterface
 
     /** @var array<string, class-string<Block>> */
     private array $mapping = [
+        'code' => CodeBlock::class,
         'delimiter' => DelimiterBlock::class,
         'embed' => EmbedBlock::class,
         'header' => HeaderBlock::class,
