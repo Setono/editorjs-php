@@ -12,13 +12,13 @@ use Setono\HtmlElement\HtmlElement;
 final class CodeBlockRenderer extends GenericBlockRenderer
 {
     /**
-     * @param HeaderBlock|Block $block
+     * @param CodeBlock|Block $block
      */
     public function render(Block $block): HtmlElement
     {
         UnsupportedBlockException::assert($this->supports($block), $block, $this);
 
-        return (new HtmlElement('code', $block->code));
+        return new HtmlElement('code', $block->code);
     }
 
     /**
