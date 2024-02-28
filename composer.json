@@ -12,17 +12,17 @@
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
-        "azjezz/psl": "^1.6",
+        "azjezz/psl": "^1.6 || ^2.0",
         "psr/log": "^1.1 || ^2.0 || ^3.0",
-        "symfony/options-resolver": "^4.4 || ^5.4 || ^6.0",
-        "webmozart/assert": "^1.10"
+        "symfony/options-resolver": "^4.4 || ^5.4 || ^6.0 || ^7.0",
+        "webmozart/assert": "^1.11"
     },
     "require-dev": {
         "infection/infection": "^0.26",
-        "php-standard-library/psalm-plugin": "^1.1",
-        "phpunit/phpunit": "^9.5",
-        "psalm/plugin-phpunit": "^0.17",
-        "setono/code-quality-pack": "^2.2"
+        "php-standard-library/psalm-plugin": "^1.1 || ^2.0",
+        "phpunit/phpunit": "^9.6",
+        "psalm/plugin-phpunit": "^0.18",
+        "setono/code-quality-pack": "^2.7"
     },
     "prefer-stable": true,
     "autoload": {
