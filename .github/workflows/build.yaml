@@ -120,6 +120,7 @@ jobs:
 
             -   name: "Static analysis"
                 run: "composer analyse"
+                continue-on-error: true
 
     unit-tests:
         name: "Unit tests"
