@@ -11,17 +11,17 @@
     ],
     "require": {
         "php": ">=8.1",
-        "azjezz/psl": "^2.5",
+        "azjezz/psl": "^2.5 || ^3.0",
         "cuyz/valinor": "^1.9",
         "psr/log": "^1.1 || ^2.0 || ^3.0",
         "setono/html-element": "^1.0",
         "symfony/options-resolver": "^4.4 || ^5.4 || ^6.0 || ^7.0"
     },
     "require-dev": {
-        "infection/infection": "^0.27",
+        "infection/infection": "^0.29",
         "php-standard-library/psalm-plugin": "^2.3",
         "phpunit/phpunit": "^9.6",
-        "psalm/plugin-phpunit": "^0.18",
+        "psalm/plugin-phpunit": "^0.19",
         "setono/code-quality-pack": "^2.6"
     },
     "prefer-stable": true,
