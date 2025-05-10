@@ -55,6 +55,7 @@ jobs:
                 php-version:
                     - "8.1"
                     - "8.2"
+                    - "8.4"
 
                 dependencies:
                     - "lowest"
@@ -93,6 +94,7 @@ jobs:
                 php-version:
                     - "8.1"
                     - "8.2"
+                    - "8.4"
 
                 dependencies:
                     - "lowest"
@@ -127,6 +129,7 @@ jobs:
                 php-version:
                     - "8.1"
                     - "8.2"
+                    - "8.4"
 
                 dependencies:
                     - "lowest"
@@ -200,6 +203,7 @@ jobs:
             matrix:
                 php-version:
                     - "8.2"
+                    - "8.4"
 
                 dependencies:
                     - "highest"
