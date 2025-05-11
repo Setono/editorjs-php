@@ -17,9 +17,10 @@ abstract class BlockRendererTestCase extends TestCase
      */
     public function it_renders(Block $block, string $html, BlockRendererInterface $blockRenderer = null): void
     {
-        // this could be done much more beautiful, but it works :D
+        // this could be done much more beautifully, but it works :D
         $html = str_replace("\n", ' ', $html);
         $html = preg_replace('/[ ]+/', ' ', $html);
+        self::assertNotNull($html);
         $html = str_replace('> <', '><', $html);
 
         $blockRenderer ??= $this->getBlockRenderer();

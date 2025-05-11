@@ -19,7 +19,7 @@ final class MappingErrorException extends \InvalidArgumentException implements P
 
         $messages = Messages::flattenFromNode($e->node())->errors();
         foreach ($messages as $message) {
-            $errorMessage .= $message . "\n";
+            $errorMessage .= (string) $message . "\n";
         }
 
         parent::__construct(sprintf(

@@ -60,6 +60,10 @@ final class RendererTest extends TestCase
         $logger = new class() extends AbstractLogger {
             public array $messages = [];
 
+            /**
+             * @param mixed $level
+             * @param string $message
+             */
             public function log($level, $message, array $context = []): void
             {
                 $this->messages[] = $message;
