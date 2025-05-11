@@ -21,6 +21,7 @@
         <pluginClass class="Psl\Psalm\Plugin"/>
     </plugins>
     <issueHandlers>
+        <MissingOverrideAttribute errorLevel="suppress"/>
         <MixedArgument>
             <errorLevel type="suppress">
                 <referencedFunction name="Setono\HtmlElement\HtmlElement::__construct"/>
