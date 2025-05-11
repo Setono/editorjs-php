@@ -21,7 +21,7 @@
         "infection/infection": "^0.27",
         "php-standard-library/psalm-plugin": "^2.3",
         "phpunit/phpunit": "^9.6",
-        "psalm/plugin-phpunit": "^0.18",
+        "psalm/plugin-phpunit": "^0.19.5",
         "setono/code-quality-pack": "^2.6",
         "shipmonk/composer-dependency-analyser": "^1.8.2"
     },
