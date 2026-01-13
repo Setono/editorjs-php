@@ -10,20 +10,20 @@
         }
     ],
     "require": {
-        "php": ">=8.1",
-        "azjezz/psl": "^2.9 || ^3.2",
-        "cuyz/valinor": "^1.9",
+        "php": ">=8.2",
+        "azjezz/psl": "^2.9 || ^3.2 || ^4.2",
+        "cuyz/valinor": "^1.9 || ^2.3",
         "psr/log": "^1.1 || ^2.0 || ^3.0",
         "setono/html-element": "^1.0",
-        "symfony/options-resolver": "^4.4 || ^5.4 || ^6.0 || ^7.0"
+        "symfony/options-resolver": "^4.4 || ^5.4 || ^6.0 || ^7.0 || ^8.0"
     },
     "require-dev": {
         "infection/infection": "^0.28.1",
         "php-standard-library/psalm-plugin": "^2.3",
-        "phpunit/phpunit": "^9.6",
+        "phpunit/phpunit": "^9.6 || ^12.5",
         "psalm/plugin-phpunit": "^0.19.5",
-        "setono/code-quality-pack": "^2.6",
-        "shipmonk/composer-dependency-analyser": "^1.8.2"
+        "setono/code-quality-pack": "^2.6 || ^2.10",
+        "shipmonk/composer-dependency-analyser": "^1.8"
     },
     "prefer-stable": true,
     "autoload": {
