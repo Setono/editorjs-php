@@ -16,8 +16,8 @@ final class MappingErrorException extends \InvalidArgumentException implements P
     public function __construct(MappingError $e, string $type, string $mapping)
     {
         $errorMessage = $e->getMessage() . "\n\n";
+        $messages = $e->messages();
 
-        $messages = Messages::flattenFromNode($e->node())->errors();
         foreach ($messages as $message) {
             $errorMessage .= (string) $message . "\n";
         }
