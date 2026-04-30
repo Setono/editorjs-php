@@ -15,7 +15,7 @@
         "cuyz/valinor": "^1.9",
         "psr/log": "^1.1 || ^2.0 || ^3.0",
         "setono/html-element": "^1.0",
-        "symfony/options-resolver": "^4.4 || ^5.4 || ^6.0 || ^7.0"
+        "symfony/options-resolver": "^4.4 || ^5.4 || ^6.0 || ^7.0 || ^8.0"
     },
     "require-dev": {
         "infection/infection": "^0.28.1",
