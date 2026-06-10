@@ -48,6 +48,7 @@ final class ImageBlockRenderer extends GenericBlockRenderer
         return $container;
     }
 
+    #[\Override]
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {
         parent::configureOptions($optionsResolver);
@@ -70,7 +71,7 @@ final class ImageBlockRenderer extends GenericBlockRenderer
     }
 
     /**
-     * @psalm-assert-if-true ImageBlock $block
+     * @phpstan-assert-if-true ImageBlock $block
      */
     public function supports(Block $block): bool
     {

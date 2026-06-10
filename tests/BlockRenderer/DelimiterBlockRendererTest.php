@@ -8,7 +8,7 @@ use Setono\EditorJS\Block\DelimiterBlock;
 
 final class DelimiterBlockRendererTest extends BlockRendererTestCase
 {
-    protected function getData(): iterable
+    public static function getData(): iterable
     {
         yield [
             new DelimiterBlock('PqqMsdfbm'),

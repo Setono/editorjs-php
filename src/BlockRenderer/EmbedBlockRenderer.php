@@ -31,6 +31,7 @@ final class EmbedBlockRenderer extends GenericBlockRenderer
         )->withClass($this->getClassOption('containerClass'));
     }
 
+    #[\Override]
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {
         parent::configureOptions($optionsResolver);
@@ -41,7 +42,7 @@ final class EmbedBlockRenderer extends GenericBlockRenderer
     }
 
     /**
-     * @psalm-assert-if-true EmbedBlock $block
+     * @phpstan-assert-if-true EmbedBlock $block
      */
     public function supports(Block $block): bool
     {

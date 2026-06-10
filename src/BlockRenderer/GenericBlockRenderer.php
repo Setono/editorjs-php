@@ -11,15 +11,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class GenericBlockRenderer implements BlockRendererInterface
 {
+    /** @var array<string, mixed> */
     private array $options;
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function __construct(array $options = [])
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
 
         try {
-            $this->options = $resolver->resolve($options);
+            /** @var array<string, mixed> $resolvedOptions */
+            $resolvedOptions = $resolver->resolve($options);
+            $this->options = $resolvedOptions;
         } catch (ExceptionInterface $e) {
             throw new OptionsResolverException($e, $this);
         }
@@ -34,9 +40,6 @@ abstract class GenericBlockRenderer implements BlockRendererInterface
         ;
     }
 
-    /**
-     * @psalm-assert-if-true mixed $this->options[$option]
-     */
     protected function hasOption(string $option): bool
     {
         return isset($this->options[$option]);
@@ -63,7 +66,8 @@ abstract class GenericBlockRenderer implements BlockRendererInterface
             return '';
         }
 
-        /** @psalm-suppress MixedArgument */
-        return sprintf('%s%s', $this->getOption('classPrefix'), $option);
+        $prefix = $this->getOption('classPrefix');
+
+        return sprintf('%s%s', is_string($prefix) ? $prefix : '', $option);
     }
 }

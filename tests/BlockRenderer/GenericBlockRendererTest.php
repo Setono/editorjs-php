@@ -10,14 +10,10 @@ use Setono\EditorJS\Exception\OptionsResolverException;
 use Setono\EditorJS\Exception\UndefinedOptionException;
 use Setono\HtmlElement\HtmlElement;
 
-/**
- * @covers \Setono\EditorJS\BlockRenderer\GenericBlockRenderer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Setono\EditorJS\BlockRenderer\GenericBlockRenderer::class)]
 final class GenericBlockRendererTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_throws_exception_if_option_is_not_set(): void
     {
         $blockRenderer = new class() extends GenericBlockRenderer {
@@ -40,9 +36,7 @@ final class GenericBlockRendererTest extends TestCase
         $blockRenderer->render(new GenericBlock());
     }
 
-    /**
-     * @test
-     */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_throws_exception_if_you_try_to_set_an_invalid_option(): void
     {
         $this->expectException(OptionsResolverException::class);
@@ -67,9 +61,7 @@ final class GenericBlockRendererTest extends TestCase
         };
     }
 
-    /**
-     * @test
-     */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_returns_class_option(): void
     {
         $blockRenderer = new class() extends GenericBlockRenderer {

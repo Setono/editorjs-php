@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Setono\EditorJS\Exception;
 
 use CuyZ\Valinor\Mapper\MappingError;
-use CuyZ\Valinor\Mapper\Tree\Message\Messages;
 use Setono\EditorJS\Block\Block;
 
 final class MappingErrorException extends \InvalidArgumentException implements ParserExceptionInterface
@@ -17,9 +16,8 @@ final class MappingErrorException extends \InvalidArgumentException implements P
     {
         $errorMessage = $e->getMessage() . "\n\n";
 
-        $messages = Messages::flattenFromNode($e->node())->errors();
-        foreach ($messages as $message) {
-            $errorMessage .= (string) $message . "\n";
+        foreach ($e->messages()->errors() as $message) {
+            $errorMessage .= sprintf("%s: %s\n", $message->path(), $message->toString());
         }
 
         parent::__construct(sprintf(

@@ -10,12 +10,9 @@ use Setono\EditorJS\Exception\UnsupportedBlockException;
 
 abstract class BlockRendererTestCase extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider getData
-     */
-    public function it_renders(Block $block, string $html, BlockRendererInterface $blockRenderer = null): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('getData')]
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_renders(Block $block, string $html, ?BlockRendererInterface $blockRenderer = null): void
     {
         // this could be done much more beautifully, but it works :D
         $html = str_replace("\n", ' ', $html);
@@ -28,9 +25,7 @@ abstract class BlockRendererTestCase extends TestCase
         self::assertSame($html, (string) $blockRenderer->render($block));
     }
 
-    /**
-     * @test
-     */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_throws_exception_if_block_is_not_supported(): void
     {
         $this->expectException(UnsupportedBlockException::class);
@@ -40,7 +35,7 @@ abstract class BlockRendererTestCase extends TestCase
     /**
      * @return iterable<array-key, array{0: Block, 1: string, 2?: BlockRendererInterface}>
      */
-    abstract protected function getData(): iterable;
+    abstract public static function getData(): iterable;
 
     abstract protected function getBlockRenderer(): BlockRendererInterface;
 }

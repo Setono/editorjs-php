@@ -22,7 +22,7 @@ final class RawBlockRenderer extends GenericBlockRenderer
     }
 
     /**
-     * @psalm-assert-if-true RawBlock $block
+     * @phpstan-assert-if-true RawBlock $block
      */
     public function supports(Block $block): bool
     {

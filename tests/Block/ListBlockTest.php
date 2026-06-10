@@ -11,9 +11,7 @@ final class ListBlockTest extends BlockTestCase
         return new ListBlock('id', ListBlock::STYLE_ORDERED, ['Item 1', 'Item 2']);
     }
 
-    /**
-     * @test
-     */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_returns_tag(): void
     {
         $block = new ListBlock('id', ListBlock::STYLE_UNORDERED, ['Item 1']);

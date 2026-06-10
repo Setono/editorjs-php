@@ -11,9 +11,7 @@ final class HeaderBlockTest extends BlockTestCase
         return new HeaderBlock('id', 'Header', 1);
     }
 
-    /**
-     * @test
-     */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_returns_tag(): void
     {
         self::assertSame('h1', $this->getBlock()->getTag());

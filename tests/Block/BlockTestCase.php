@@ -8,12 +8,10 @@ use PHPUnit\Framework\TestCase;
 
 abstract class BlockTestCase extends TestCase
 {
-    /**
-     * @test
-     */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_sets_the_id(): void
     {
-        self::assertIsString($this->getBlock()->id);
+        self::assertSame('id', $this->getBlock()->id);
     }
 
     abstract protected function getBlock(): Block;

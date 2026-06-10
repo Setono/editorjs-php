@@ -9,7 +9,7 @@ use Setono\EditorJS\BlockRenderer\BlockRendererInterface;
 
 final class UnsupportedBlockException extends \RuntimeException implements RendererExceptionInterface
 {
-    public function __construct(Block $block, BlockRendererInterface $blockRenderer = null)
+    public function __construct(Block $block, ?BlockRendererInterface $blockRenderer = null)
     {
         $message = sprintf(
             'Could not render block "%s" (id: %s). No block renderer supports this block',
@@ -30,7 +30,7 @@ final class UnsupportedBlockException extends \RuntimeException implements Rende
     }
 
     /**
-     * @psalm-assert true $test
+     * @phpstan-assert true $test
      */
     public static function assert(bool $test, Block $block, BlockRendererInterface $blockRenderer): void
     {

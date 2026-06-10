@@ -6,6 +6,9 @@ namespace Setono\EditorJS\Exception;
 
 final class ReservedKeyException extends \RuntimeException implements ParserExceptionInterface
 {
+    /**
+     * @param array<string, mixed> $block
+     */
     public function __construct(string $key, array $block)
     {
         $json = null;
