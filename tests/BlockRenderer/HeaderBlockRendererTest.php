@@ -8,7 +8,7 @@ use Setono\EditorJS\Block\HeaderBlock;
 
 final class HeaderBlockRendererTest extends BlockRendererTestCase
 {
-    protected function getData(): iterable
+    public static function getData(): iterable
     {
         yield [
             new HeaderBlock('PqqMsdfbm', 'Header', 1),

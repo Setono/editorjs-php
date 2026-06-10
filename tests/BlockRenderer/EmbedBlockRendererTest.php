@@ -8,7 +8,7 @@ use Setono\EditorJS\Block\EmbedBlock;
 
 final class EmbedBlockRendererTest extends BlockRendererTestCase
 {
-    protected function getData(): iterable
+    public static function getData(): iterable
     {
         yield [
             new EmbedBlock(

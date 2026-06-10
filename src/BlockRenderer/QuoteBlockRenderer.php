@@ -30,7 +30,7 @@ final class QuoteBlockRenderer extends GenericBlockRenderer
     }
 
     /**
-     * @psalm-assert-if-true QuoteBlock $block
+     * @phpstan-assert-if-true QuoteBlock $block
      */
     public function supports(Block $block): bool
     {

@@ -8,7 +8,7 @@ use Setono\EditorJS\Block\ListBlock;
 
 final class ListBlockRendererTest extends BlockRendererTestCase
 {
-    protected function getData(): iterable
+    public static function getData(): iterable
     {
         yield [
             new ListBlock(

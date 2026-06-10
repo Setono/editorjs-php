@@ -22,7 +22,7 @@ final class ImageBlock extends Block
     /**
      * Returns true if the caption is not empty, i.e. $this->caption !== ''
      *
-     * @psalm-assert-if-true non-empty-string $this->caption
+     * @phpstan-assert-if-true non-empty-string $this->caption
      */
     public function hasCaption(): bool
     {

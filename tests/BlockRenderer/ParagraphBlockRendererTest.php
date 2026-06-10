@@ -8,7 +8,7 @@ use Setono\EditorJS\Block\ParagraphBlock;
 
 final class ParagraphBlockRendererTest extends BlockRendererTestCase
 {
-    protected function getData(): iterable
+    public static function getData(): iterable
     {
         yield [
             new ParagraphBlock('PqqMsdfbm', 'Paragraph'),

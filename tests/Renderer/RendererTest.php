@@ -13,14 +13,10 @@ use Setono\EditorJS\BlockRenderer\ParagraphBlockRenderer;
 use Setono\EditorJS\Exception\UnsupportedBlockException;
 use Setono\EditorJS\Parser\ParserResult;
 
-/**
- * @covers \Setono\EditorJS\Renderer\Renderer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Setono\EditorJS\Renderer\Renderer::class)]
 final class RendererTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_renders(): void
     {
         $parserResult = new ParserResult(new \DateTimeImmutable(), '2.3.4', [
@@ -34,9 +30,7 @@ final class RendererTest extends TestCase
         self::assertSame('<h1>Header</h1><p>Lorem ipsum</p>', $renderer->render($parserResult));
     }
 
-    /**
-     * @test
-     */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_throws_exception_if_block_is_not_supported(): void
     {
         $this->expectException(UnsupportedBlockException::class);
@@ -45,12 +39,10 @@ final class RendererTest extends TestCase
             new HeaderBlock('id', 'Header', 1),
         ]);
 
-        self::assertSame('<h1>Header</h1><p>Lorem ipsum</p>', (new Renderer())->render($parserResult));
+        self::assertSame('<h1>Header</h1><p>Lorem ipsum</p>', new Renderer()->render($parserResult));
     }
 
-    /**
-     * @test
-     */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_does_not_throw_on_unsupported_block_if_throwing_is_disabled(): void
     {
         $parserResult = new ParserResult(new \DateTimeImmutable(), '2.3.4', [
@@ -58,11 +50,13 @@ final class RendererTest extends TestCase
         ]);
 
         $logger = new class() extends AbstractLogger {
+            /** @var list<string|\Stringable> */
             public array $messages = [];
 
             /**
              * @param mixed $level
-             * @param string $message
+             * @param string|\Stringable $message
+             * @param array<mixed> $context
              */
             public function log($level, $message, array $context = []): void
             {

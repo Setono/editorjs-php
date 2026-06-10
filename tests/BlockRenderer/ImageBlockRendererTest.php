@@ -9,7 +9,7 @@ use Setono\EditorJS\Block\ImageBlock;
 
 final class ImageBlockRendererTest extends BlockRendererTestCase
 {
-    protected function getData(): iterable
+    public static function getData(): iterable
     {
         yield [
             new ImageBlock(

@@ -16,17 +16,20 @@ final class DelimiterBlockRenderer extends GenericBlockRenderer
     {
         UnsupportedBlockException::assert($this->supports($block), $block, $this);
 
-        return (new HtmlElement($this->getOption('tag')))->withClass($this->getClassOption('class'));
+        $tag = $this->getOption('tag');
+
+        return new HtmlElement(is_string($tag) ? $tag : 'hr')->withClass($this->getClassOption('class'));
     }
 
     /**
-     * @psalm-assert-if-true DelimiterBlock $block
+     * @phpstan-assert-if-true DelimiterBlock $block
      */
     public function supports(Block $block): bool
     {
         return $block instanceof DelimiterBlock;
     }
 
+    #[\Override]
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {
         parent::configureOptions($optionsResolver);

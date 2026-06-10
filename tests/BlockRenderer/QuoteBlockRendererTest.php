@@ -8,7 +8,7 @@ use Setono\EditorJS\Block\QuoteBlock;
 
 final class QuoteBlockRendererTest extends BlockRendererTestCase
 {
-    protected function getData(): iterable
+    public static function getData(): iterable
     {
         yield [
             new QuoteBlock('KmfRaA', 'We are the champions', 'Queen', 'left'),

@@ -18,13 +18,13 @@ final class HeaderBlockRenderer extends GenericBlockRenderer
     {
         UnsupportedBlockException::assert($this->supports($block), $block, $this);
 
-        return (new HtmlElement(sprintf('h%d', $block->level), $block->text))
+        return new HtmlElement(sprintf('h%d', $block->level), $block->text)
             ->withClass($this->getClassOption('class'))
         ;
     }
 
     /**
-     * @psalm-assert-if-true HeaderBlock $block
+     * @phpstan-assert-if-true HeaderBlock $block
      */
     public function supports(Block $block): bool
     {

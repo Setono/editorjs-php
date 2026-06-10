@@ -1,0 +1,9 @@
+includes:
+    - vendor/cuyz/valinor/qa/PHPStan/valinor-phpstan-configuration.php
+
+parameters:
+    level: max
+    paths:
+        - src
+        - tests
+    tmpDir: .build/phpstan

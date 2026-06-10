@@ -22,7 +22,7 @@ final class ParagraphBlockRenderer extends GenericBlockRenderer
     }
 
     /**
-     * @psalm-assert-if-true ParagraphBlock $block
+     * @phpstan-assert-if-true ParagraphBlock $block
      */
     public function supports(Block $block): bool
     {

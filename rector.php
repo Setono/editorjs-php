@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\Config\RectorConfig;
-use Rector\Set\ValueObject\LevelSetList;
+use Rector\PHPUnit\Set\PHPUnitSetList;
 
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->cacheClass(FileCacheStorage::class);
-    $rectorConfig->cacheDirectory('./.build/rector');
-
-    $rectorConfig->paths([
+return RectorConfig::configure()
+    ->withCache('./.build/rector', FileCacheStorage::class)
+    ->withPaths([
         __DIR__ . '/src',
         __DIR__ . '/tests',
+    ])
+    ->withPhpSets(php84: true)
+    ->withAttributesSets(phpunit: true)
+    ->withSets([
+        PHPUnitSetList::PHPUNIT_100,
+        PHPUnitSetList::PHPUNIT_110,
     ]);
-
-    $rectorConfig->sets([
-        LevelSetList::UP_TO_PHP_81
-    ]);
-};
