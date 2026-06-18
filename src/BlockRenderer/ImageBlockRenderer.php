@@ -48,7 +48,6 @@ final class ImageBlockRenderer extends GenericBlockRenderer
         return $container;
     }
 
-    #[\Override]
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {
         parent::configureOptions($optionsResolver);

@@ -18,7 +18,7 @@ final class DelimiterBlockRenderer extends GenericBlockRenderer
 
         $tag = $this->getOption('tag');
 
-        return new HtmlElement(is_string($tag) ? $tag : 'hr')->withClass($this->getClassOption('class'));
+        return (new HtmlElement(is_string($tag) ? $tag : 'hr'))->withClass($this->getClassOption('class'));
     }
 
     /**
@@ -29,7 +29,6 @@ final class DelimiterBlockRenderer extends GenericBlockRenderer
         return $block instanceof DelimiterBlock;
     }
 
-    #[\Override]
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {
         parent::configureOptions($optionsResolver);

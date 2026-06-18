@@ -19,15 +19,14 @@ final class ListBlockRenderer extends GenericBlockRenderer
     {
         UnsupportedBlockException::assert($this->supports($block), $block, $this);
 
-        return new HtmlElement($block->tag, ...array_map(
+        return (new HtmlElement($block->tag, ...array_map(
             fn (string $item) => HtmlElement::li($item)->withClass($this->getClassOption('itemClass')),
             $block->items,
-        ))
+        )))
             ->withClass($this->getClassOption('class'))
         ;
     }
 
-    #[\Override]
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {
         parent::configureOptions($optionsResolver);

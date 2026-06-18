@@ -39,7 +39,7 @@ final class RendererTest extends TestCase
             new HeaderBlock('id', 'Header', 1),
         ]);
 
-        self::assertSame('<h1>Header</h1><p>Lorem ipsum</p>', new Renderer()->render($parserResult));
+        self::assertSame('<h1>Header</h1><p>Lorem ipsum</p>', (new Renderer())->render($parserResult));
     }
 
     #[\PHPUnit\Framework\Attributes\Test]

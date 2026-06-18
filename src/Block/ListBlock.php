@@ -6,9 +6,9 @@ namespace Setono\EditorJS\Block;
 
 final class ListBlock extends Block
 {
-    public const string STYLE_ORDERED = 'ordered';
+    public const STYLE_ORDERED = 'ordered';
 
-    public const string STYLE_UNORDERED = 'unordered';
+    public const STYLE_UNORDERED = 'unordered';
 
     /**
      * This is a helper property containing the html tag for the list (i.e. ol/ul)

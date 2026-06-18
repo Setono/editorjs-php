@@ -18,7 +18,7 @@ final class HeaderBlockRenderer extends GenericBlockRenderer
     {
         UnsupportedBlockException::assert($this->supports($block), $block, $this);
 
-        return new HtmlElement(sprintf('h%d', $block->level), $block->text)
+        return (new HtmlElement(sprintf('h%d', $block->level), $block->text))
             ->withClass($this->getClassOption('class'))
         ;
     }

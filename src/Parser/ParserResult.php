@@ -6,13 +6,13 @@ namespace Setono\EditorJS\Parser;
 
 use Setono\EditorJS\Block\Block;
 
-final readonly class ParserResult
+final class ParserResult
 {
     public function __construct(
-        public \DateTimeImmutable $time,
-        public string $version,
+        public readonly \DateTimeImmutable $time,
+        public readonly string $version,
         /** @var list<Block> $blocks */
-        public array $blocks,
+        public readonly array $blocks,
     ) {
     }
 }
