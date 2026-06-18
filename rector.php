@@ -12,7 +12,7 @@ return RectorConfig::configure()
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ])
-    ->withPhpSets(php84: true)
+    ->withPhpSets(php81: true)
     ->withAttributesSets(phpunit: true)
     ->withSets([
         PHPUnitSetList::PHPUNIT_100,

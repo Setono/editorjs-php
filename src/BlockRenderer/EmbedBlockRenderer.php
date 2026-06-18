@@ -31,7 +31,6 @@ final class EmbedBlockRenderer extends GenericBlockRenderer
         )->withClass($this->getClassOption('containerClass'));
     }
 
-    #[\Override]
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {
         parent::configureOptions($optionsResolver);

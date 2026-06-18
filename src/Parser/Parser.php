@@ -88,7 +88,7 @@ final class Parser implements ParserInterface
     public function getMapperBuilder(): MapperBuilder
     {
         if (null === $this->mapperBuilder) {
-            $this->mapperBuilder = new MapperBuilder()
+            $this->mapperBuilder = (new MapperBuilder())
                 ->allowSuperfluousKeys()
                 ->allowPermissiveTypes()
             ;
